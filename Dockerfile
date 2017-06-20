@@ -29,7 +29,8 @@ RUN wget -qO- http://ssb.stsci.edu/pandeia/engine/1.0/pandeia_data-1.0.tar.gz | 
 ENV pandeia_refdata $HOME/pandeia_data-1.0
 
 # Install Pandeia
-RUN pip install --no-cache-dir pandeia.engine==1.0
+RUN pip2 install --no-cache-dir pandeia.engine==1.0
+RUN pip3 install --no-cache-dir pandeia.engine==1.0
 
 ### WebbPSF
 ENV WEBBPSF_VERSION 0.5.1
@@ -40,7 +41,8 @@ RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBP
 ENV WEBBPSF_PATH $HOME/webbpsf-data
 
 # Install WebbPSF
-RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
+RUN pip2 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
+RUN pip3 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 
 ### Copy notebooks into place
 COPY . $HOME

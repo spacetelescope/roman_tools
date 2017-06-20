@@ -7,11 +7,11 @@ The notebook files in this repository can be viewed (read-only) with [nbviewer](
 [View the getting started notebook](https://nbviewer.jupyter.org/github/josePhoenix/wfirst-tools/blob/master/index.ipynb).
 
 
-## Play with the tools in a temporary environment
+## Play with the tools in a temporary environment in the cloud
 
 We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free service called Binder, provided The Freeman Lab at HHMI Janelia Research Campus and currently available in beta (without guarantees of uptime).
 
-To launch in Binder (*beta*), follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master?filepath=index.ipynb
+To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master?filepath=Getting%20Started.ipynb
 
 Feel free to explore and run example calculations. Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the pool.
 
