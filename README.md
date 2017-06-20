@@ -4,7 +4,7 @@
 
 The notebook files in this repository can be viewed (read-only) with [nbviewer](http://nbviewer.jupyter.org), a service of the Jupyter project.
 
-[View the getting started notebook](https://nbviewer.jupyter.org/github/josePhoenix/wfirst-tools/blob/master/index.ipynb).
+[View the getting started notebook](https://nbviewer.jupyter.org/github/josePhoenix/wfirst-tools/blob/master/Getting%20Started.ipynb).
 
 
 ## Play with the tools in a temporary environment in the cloud
