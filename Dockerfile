@@ -3,14 +3,6 @@ FROM jupyter/scipy-notebook
 MAINTAINER Joseph Long <help@stsci.edu>
 
 WORKDIR $HOME
-COPY . $HOME
-
-# As root, adjust permissions on notebooks and other files
-USER root
-RUN chown -R $NB_USER:users $HOME/*
-RUN chmod -R u+rwX $HOME/*
-
-# ... and back to RUNing as jovyan
 USER $NB_USER
 
 # Extract PySynphot reference data into $HOME/grp/hst/cdbs
@@ -32,9 +24,9 @@ RUN conda install --quiet --yes -n python2 $EXTRA_PACKAGES && \
     conda clean -tipsy
 
 ### Pandeia
-# Extract Pandeia reference data into $HOME/pandeia-data-1.0
+# Extract Pandeia reference data into $HOME/pandeia_data-1.0
 RUN wget -qO- http://ssb.stsci.edu/pandeia/engine/1.0/pandeia_data-1.0.tar.gz | tar xvz
-ENV pandeia_refdata $HOME/pandeia-data-1.0
+ENV pandeia_refdata $HOME/pandeia_data-1.0
 
 # Install Pandeia
 RUN pip install --no-cache-dir pandeia.engine==1.0
@@ -49,3 +41,14 @@ ENV WEBBPSF_PATH $HOME/webbpsf-data
 
 # Install WebbPSF
 RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
+
+### Copy notebooks into place
+COPY . $HOME
+
+# As root, adjust permissions on notebooks and other files
+USER root
+RUN chown -R $NB_USER:users $HOME/*
+RUN chmod -R u+rwX $HOME/*
+
+# ... and switch back to RUNing as jovyan
+USER $NB_USER

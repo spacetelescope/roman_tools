@@ -124,7 +124,7 @@ export pandeia_refdata="$(pwd)/pandeia-data-1.0"
 To test that Pandeia can find its reference files, use the following command:
 
 ```
-python -c 'from pandeia.engine.wfirst import WFIRSTImager; WFIRSTImager()'
+python -c 'from pandeia.engine.wfirst import WFIRSTImager; WFIRSTImager(mode="imaging")'
 ```
 
 If you do not see any errors, Pandeia was able to instantiate a WFIRST WFI model successfully.
