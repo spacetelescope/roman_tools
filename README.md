@@ -137,7 +137,7 @@ In a terminal where you have run `source activate wfirst-tools` and set the abov
 git clone git@github.com:josePhoenix/wfirst-tools.git
 ```
 
-This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `index.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
+This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
 
 ## Resources
 
