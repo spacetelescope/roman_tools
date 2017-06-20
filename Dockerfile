@@ -40,10 +40,11 @@ ENV pandeia_refdata $HOME/pandeia-data-1.0
 RUN pip install --no-cache-dir pandeia.engine==1.0
 
 ### WebbPSF
-ENV WEBBPSF_VERSION 0.5.0
+ENV WEBBPSF_VERSION 0.5.1
+ENV WEBBPSF_DATA_VERSION 0.5.0
 
 # Extract WebbPSF reference data into $HOME/webbpsf-data
-RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-0.5.0.tar.gz | tar xvz
+RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
 ENV WEBBPSF_PATH $HOME/webbpsf-data
 
 # Install WebbPSF
