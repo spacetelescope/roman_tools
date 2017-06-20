@@ -57,10 +57,10 @@ RUN pip3 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 # Copy notebooks into place
 COPY . $HOME
 
-# As root, adjust permissions on notebooks and other files
+# As root, adjust permissions on notebooks
 USER root
-RUN chown -Rv $NB_USER:users $HOME/*
-RUN chmod -Rv u+rwX $HOME/*
+RUN chown -Rv $NB_USER:users $HOME/*.ipynb
+RUN chmod -Rv u+rwX $HOME/*.ipynb
 
 # ... and switch back to RUNing as jovyan
 USER $NB_USER
