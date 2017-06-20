@@ -13,7 +13,7 @@ We have automated the setup of a temporary evaluation environment for community 
 
 To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master?filepath=Getting%20Started.ipynb
 
-Feel free to explore and run example calculations. Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the pool.
+It may take a few minutes to start up. (Probably because there's over 3 GB of reference data involved!) Feel free to explore and run example calculations. Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the cloud from whence it came.
 
 If you wish to save code or output products, you **must** download them from the Jupyter interface. (Or, better yet, switch to a local installation of the tools!)
 
