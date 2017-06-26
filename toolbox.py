@@ -44,6 +44,11 @@ def get_config(filename):
             conf[k] = k
     return conf
 
+star_config_file = os.path.join(os.environ['pandeia_refdata'], 'sed', 'phoenix', 'spectra.json')
+STAR_CONFIG = get_config(star_config_file)
+galaxies_config_file = os.path.join(os.environ['pandeia_refdata'], 'sed', 'brown', 'spectra.json')
+GALAXIES_CONFIG = get_config(galaxies_config_file)
+
 def _trait_change(func):
     @wraps(func)
     def inner(self, change):
@@ -78,7 +83,8 @@ class PandeiaWFIRSTCalculator(object):
     APERTURE_MAX = 2.0
 
     def __init__(self):
-        self.calculation_result = None
+        self._calculation_result = None
+        self.calculation_input = None
 
         self.src_select = widgets.Dropdown(
             description="Source type:",
@@ -213,16 +219,15 @@ class PandeiaWFIRSTCalculator(object):
         )
         _hide(self.bb_temp)
 
-        star_config_file = os.path.join(os.environ['pandeia_refdata'], 'sed', 'phoenix', 'spectra.json')
-        self.star_config = get_config(star_config_file)
+
+        self.star_config = STAR_CONFIG
         self.stars = widgets.Dropdown(
             options=sorted(self.star_config.keys()),
             layout={'width': '18rem'},
         )
         _hide(self.stars)
 
-        gal_config_file = os.path.join(os.environ['pandeia_refdata'], 'sed', 'brown', 'spectra.json')
-        self.gal_config = get_config(gal_config_file)
+        self.gal_config = GALAXIES_CONFIG
         self.galaxies = widgets.Dropdown(
             options=sorted(self.gal_config.keys()),
             layout={'width': '26rem'},
@@ -278,12 +283,10 @@ class PandeiaWFIRSTCalculator(object):
             min=2, max=999, value=10)
         self.nints = widgets.BoundedIntText(
             description="Integrations:",
-            min=1, max=999, value=1
-        )
+            min=1, max=999, value=1)
         self.nexps = widgets.BoundedIntText(
             description="Exposures:",
-            min=1, max=999, value=1
-        )
+            min=1, max=999, value=1)
         return widgets.VBox([self.ngroups, self.nints, self.nexps])
 
     def _build_strat_form(self):
@@ -395,18 +398,18 @@ class PandeiaWFIRSTCalculator(object):
         update the 1D and 2D plots.  they're part of the same figure so have to be drawn together.  hard to do
         two independent plots in one cell in a notebook.
         """
-        if self.calculation_result is None:
+        if self._calculation_result is None:
             return
         oned_key = self.oned_plots[self.oned_pulldown.value]
         twod_key = self.twod_plots[self.twod_pulldown.value]
-        oned_curve = self.calculation_result['1d'][oned_key]
-        twod_im = self.calculation_result['2d'][twod_key]
+        oned_curve = self._calculation_result['1d'][oned_key]
+        twod_im = self._calculation_result['2d'][twod_key]
         fig = plt.figure(figsize=(8, 3))
         ax1 = fig.add_subplot(121)
         plot = ax1.plot(oned_curve[0], oned_curve[1])
         ax1.set_xlabel(r'$\mu m$')
         ax1.set_ylabel(self.oned_units[oned_key])
-        t = self.calculation_result['transform']
+        t = self._calculation_result['transform']
         xmin = t['x_min']
         xmax = t['x_max']
         ymin = t['y_min']
@@ -445,15 +448,15 @@ class PandeiaWFIRSTCalculator(object):
         return display(self.form)
 
     @property
-    def calc_results(self):
+    def calculation_result(self):
         """
         return the calculation results
         """
-        return self.calculation_result
+        return self._calculation_result
 
-    @calc_results.setter
-    def calc_results(self, r):
-        self.calculation_result = r
+    @calculation_result.setter
+    def calculation_result(self, value):
+        self._calculation_result = value
         self.update_plots()
 
     @_trait_change
@@ -549,14 +552,14 @@ class PandeiaWFIRSTCalculator(object):
         c['strategy']['aperture_size'] = self.ap_size.value
         c['strategy']['sky_annulus'] = self.background_annulus.value
 
-        self.calculation_result = perform_calculation(c, dict_report=True)
-        self.calc_input = c
+        self._calculation_result = perform_calculation(c, dict_report=True)
+        self.calculation_input = c
         _show(self.plot_form)
-        sn_effective_wavelength, sn_ratio = self.calculation_result['1d']['sn']
+        sn_effective_wavelength, sn_ratio = self._calculation_result['1d']['sn']
         self.esn.value = "%.2f" % sn_ratio
-        extracted_flux_effective_wavelength, extracted_flux = self.calculation_result['1d']['extracted_flux']
+        extracted_flux_effective_wavelength, extracted_flux = self._calculation_result['1d']['extracted_flux']
         self.eflux.value = "%.2f" % extracted_flux
-        self.etime.value = "%.2f" % self.calculation_result['information']['exposure_specification']['exposure_time']
+        self.etime.value = "%.2f" % self._calculation_result['information']['exposure_specification']['exposure_time']
         _show(self.tab_form)
 
         self.update_plots()
