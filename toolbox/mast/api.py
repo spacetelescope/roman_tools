@@ -1,8 +1,22 @@
 import requests
-from urllib.parse import urlencode
 import json
+import os.path
+
+from .. import utils
 
 MAST_API_URL = 'https://mast.stsci.edu/api/v0/invoke'
+
+__all__ = (
+    'MAST_API_URL',
+    'lookup_name',
+    'cone_search',
+    'filtered_search',
+    'retrieve',
+    '_api_request'
+)
+
+def _noop(*_, **__):
+    pass
 
 def _api_request(payload):
     response = requests.post(MAST_API_URL, {'request': json.dumps(payload)})
@@ -10,6 +24,7 @@ def _api_request(payload):
         return response.json()
     else:
         raise RuntimeError('MAST API returned status {} for payload {}'.format(response.status_code, payload))
+
 
 def lookup_name(name):
     payload = {'service': 'Mast.Name.Lookup',
@@ -19,14 +34,8 @@ def lookup_name(name):
         raise ValueError("Could not resolve target name {}".format(name))
     elif len(response['resolvedCoordinate']) > 1:
         raise ValueError("Multiple target coordinates for target name {}".format(name))
-    else:
-        coords = response['resolvedCoordinate'][0]
-        return {
-            'canonicalName': coords['canonicalName'],
-            'ra': coords['ra'],
-            'dec': coords['decl'],
-        }
     return response
+
 
 def cone_search(ra, dec, radius_arcsec=0.2):
     payload = {
@@ -40,6 +49,7 @@ def cone_search(ra, dec, radius_arcsec=0.2):
     }
     response = _api_request(payload)
     return response
+
 
 def filtered_search(ra, dec, filters=None, radius_arcsec=0.2):
     payload = {
@@ -59,32 +69,36 @@ def filtered_search(ra, dec, filters=None, radius_arcsec=0.2):
     }
     return _api_request(payload)
 
-def _retrieve_obsid(obsid, verbose=False):
+
+def retrieve(obsids, directory=None, verbose=False):
+    if directory is not None:
+        utils.ensure_dir(directory)
+    if verbose:
+        log = print
+    else:
+        log = _noop
     payload = {
         'service': 'Mast.Caom.Products',
-        'params': {'obsid': obsid},
+        'params': {'obsid': ','.join(map(str, obsids))},
         'format': 'json'
     }
     response = _api_request(payload)
     filenames = []
-    if verbose:
-        print("Found", len(response['data']), "products")
+    log("Found", len(response['data']), "products")
     for data_product in response['data']:
-        if verbose:
-            print("Retrieving", data_product['dataURI'])
-        assert 'https://' in data_product['dataURI']
-        r = requests.get(data_product['dataURI'])
-        filename = data_product['productFilename']
-        with open(filename, 'wb') as fd:
-            for chunk in r.iter_content(chunk_size=128):
-                fd.write(chunk)
-            filenames.append(filename)
-            if verbose:
-                print("Done with", filename)
-    return filenames
-
-def retrieve(obsids, verbose=False):
-    filenames = []
-    for obsid in obsids:
-        filenames.extend(_retrieve_obsid(obsid, verbose=verbose))
+        if directory is not None:
+            filename = os.path.join(directory, data_product['productFilename'])
+        else:
+            filename = data_product['productFilename']
+        if not os.path.exists(filename):
+            log("Retrieving", data_product['dataURI'])
+            assert 'https://' in data_product['dataURI']
+            r = requests.get(data_product['dataURI'])
+            with open(filename, 'wb') as fd:
+                for chunk in r.iter_content(chunk_size=128):
+                    fd.write(chunk)
+        else:
+            log("Using existing", filename)
+        filenames.append(filename)
+        log("Done with", filename)
     return filenames
