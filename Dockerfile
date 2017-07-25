@@ -5,6 +5,9 @@ MAINTAINER Joseph Long <help@stsci.edu>
 WORKDIR $HOME
 USER $NB_USER
 
+# Copy notebooks into place
+COPY . $HOME
+
 # Note: this Dockerfile is ordered roughly by how often things are expected
 # to change (ascending). That way, only the last few changed steps are
 # rebuilt on push.
@@ -32,7 +35,6 @@ RUN pip2 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 RUN pip3 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Extract Pandeia reference data into $HOME/pandeia_wfirst_data
-ADD pandeia_wfirst_data.tar.gz
 RUN tar xvz pandeia_wfirst_data.tar.gz
 ENV pandeia_refdata $HOME/pandeia_wfirst_data
 
@@ -51,9 +53,6 @@ RUN pip3 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 #
 # Prepare files and permissions
 #
-
-# Copy notebooks into place
-COPY . $HOME
 
 # As root, adjust permissions on notebooks
 USER root
