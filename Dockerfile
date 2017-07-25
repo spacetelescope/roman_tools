@@ -35,7 +35,7 @@ RUN pip2 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 RUN pip3 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Extract Pandeia reference data into $HOME/pandeia_wfirst_data
-RUN tar xvz pandeia_wfirst_data.tar.gz
+RUN tar xvzf $HOME/pandeia_wfirst_data.tar.gz
 ENV pandeia_refdata $HOME/pandeia_wfirst_data
 
 # Extract WebbPSF reference data into $HOME/webbpsf-data
