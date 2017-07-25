@@ -1,3 +1,4 @@
+from __future__ import division, absolute_import, print_function
 import requests
 import json
 import os.path
@@ -12,11 +13,26 @@ __all__ = (
     'cone_search',
     'filtered_search',
     'retrieve',
-    '_api_request'
+    'update_header_from_fitscut',
+    '_api_request',
 )
 
-def _noop(*_, **__):
+
+def _noop(*_):
     pass
+
+
+def update_header_from_fitscut(header, obs_id):
+    new_wcs = requests.get('http://hla.stsci.edu/cgi-bin/fitscut.cgi',
+                           {'red': obs_id, 'getWCS': 1}).json()
+    for idx, keyword in enumerate(('CD1_1', 'CD1_2', 'CD2_1', 'CD2_2')):
+        header[keyword] = new_wcs['cdmatrix'][idx]
+    header['CRPIX1'], header['CRPIX2'] = new_wcs['crpix']
+    header['CRVAL1'], header['CRVAL2'] = new_wcs['crval']
+    assert header['NAXIS1'] == new_wcs['imsize'][0]
+    assert header['NAXIS2'] == new_wcs['imsize'][1]
+    return header
+
 
 def _api_request(payload):
     response = requests.post(MAST_API_URL, {'request': json.dumps(payload)})
