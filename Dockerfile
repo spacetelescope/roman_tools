@@ -5,35 +5,17 @@ MAINTAINER Joseph Long <help@stsci.edu>
 WORKDIR $HOME
 USER $NB_USER
 
-# Define versions of interest
-ENV WEBBPSF_DATA_VERSION 0.5.0
-ENV WEBBPSF_VERSION 0.5.1
+# Note: this Dockerfile is ordered roughly by how often things are expected
+# to change (ascending). That way, only the last few changed steps are
+# rebuilt on push.
 
-#
-# Retrieve/extract reference data files
-#
+# Configure AstroConda
+RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
 # Extract PySynphot reference data into $HOME/grp/hst/cdbs
 RUN wget -qO- ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz | tar xvz
 RUN wget -qO- ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
-
-# Extract WebbPSF reference data into $HOME/webbpsf-data
-RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
-
-# Extract Pandeia reference data into $HOME/pandeia_wfirst_data
-RUN wget -qO- http://www.stsci.edu/~jlong/pandeia_wfirst_data-1.1.1.tar.gz | tar xvz
-
-# Configure environment variables for reference data
 ENV PYSYN_CDBS $HOME/grp/hst/cdbs
-ENV pandeia_refdata $HOME/pandeia_wfirst_data
-ENV WEBBPSF_PATH $HOME/webbpsf-data
-
-#
-# Install software
-#
-
-# Configure AstroConda
-RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
 # Install WFIRST Simulation Tools dependencies for python2 and python3
 ENV EXTRA_PACKAGES astropy pyfftw pysynphot photutils
@@ -45,10 +27,24 @@ RUN conda install --quiet --yes -n python2 $EXTRA_PACKAGES && \
     conda clean -tipsy
 
 # Install Pandeia
-RUN pip2 install --no-cache-dir pandeia.engine==1.1.1
-RUN pip3 install --no-cache-dir pandeia.engine==1.1.1
+ENV PANDEIA_VERSION 1.1.1
+RUN pip2 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
+RUN pip3 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
+
+# Extract Pandeia reference data into $HOME/pandeia_wfirst_data
+ADD pandeia_wfirst_data.tar.gz
+RUN tar xvz pandeia_wfirst_data.tar.gz
+ENV pandeia_refdata $HOME/pandeia_wfirst_data
+
+# Extract WebbPSF reference data into $HOME/webbpsf-data
+# (note: version number env vars are declared close to where they are used
+# to prevent unnecessary rebuilds of the Docker image)
+ENV WEBBPSF_DATA_VERSION 0.5.0
+RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
+ENV WEBBPSF_PATH $HOME/webbpsf-data
 
 # Install WebbPSF
+ENV WEBBPSF_VERSION 0.5.1
 RUN pip2 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 RUN pip3 install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 
