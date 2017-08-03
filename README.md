@@ -9,13 +9,29 @@ The notebook files in this repository can be viewed (read-only) with [nbviewer](
 
 ## Play with the tools in a temporary environment in the cloud
 
-We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free service called Binder, provided The Freeman Lab at HHMI Janelia Research Campus and currently available in beta (without guarantees of uptime).
+We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
-To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master?filepath=Getting%20Started.ipynb
+To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master
 
 It may take a few minutes to start up. (Probably because there's over 3 GB of reference data involved!) Feel free to explore and run example calculations. Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the cloud whence it came.
 
 If you wish to save code or output products, you **must** download them from the Jupyter interface. (Or, better yet, switch to a local installation of the tools!)
+
+## Run locally in a container with Docker
+
+1. Start by installing the free [Docker Community Edition](https://www.docker.com/community-edition) locally. This will make the `docker` command available in your terminal.
+2. Clone this repository to a folder on your computer and `cd` into it.
+3. Execute `./run.sh` to build and start a Docker container. (The first time you build the container, you will have to download a lot of data files, but subsequent builds will be quick.) You should see a lot of output, ending with something like:
+
+   ```
+   [C 12:34:56.000 NotebookApp]
+
+       Copy/paste this URL into your browser when you connect for the first time,
+       to login with a token:
+           http://localhost:8888/?token=aabbccddeeff00112233445566778899
+   ```
+
+  Open that URL in a browser, and you'll see a Jupyter notebook interface to an environment with the tools available. (The `run.sh` script forwards `localhost:8888` to the same port in the container, so you can copy the URL as-is.)
 
 ## Install the simulation tools locally
 
@@ -54,9 +70,10 @@ Next, create a new directory somewhere with plenty of space to hold the referenc
 
 ### Installing synthetic photometry reference information
 
-To obtain the reference data used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
+To obtain the [reference data](http://pysynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
 
 ```
+curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
 curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
 curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
 ```
@@ -64,6 +81,7 @@ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
 This retrieves interstellar extinction curves, several spectral atlases, and a grid of stellar spectra derived from [PHOENIX](http://www.hs.uni-hamburg.de/index.php?option=com_content&view=article&id=14&Itemid=294&lang=en) models. Extract them into the current directory:
 
 ```
+tar xvzf ./synphot1.tar.gz
 tar xvzf ./synphot2.tar.gz
 tar xvzf ./synphot5.tar.gz
 ```

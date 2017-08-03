@@ -505,7 +505,8 @@ class PandeiaWFIRSTCalculator(object):
             _show(self.galaxies)
         else:
             raise RuntimeError("SED type unknown: {}".format(value))
-    def run_calc(self, b):
+
+    def run_engine(self):
         c = build_default_calc("wfirst", "wfirstimager", "imaging")
         c['configuration']['detector']['nexp'] = self.nexps.value
         c['configuration']['detector']['ngroup'] = self.ngroups.value
@@ -554,6 +555,9 @@ class PandeiaWFIRSTCalculator(object):
 
         self._calculation_result = perform_calculation(c, dict_report=True)
         self.calculation_input = c
+
+    def run_calc(self, clicked_button_object=None):
+        self.run_engine()
         _show(self.plot_form)
         sn_effective_wavelength, sn_ratio = self._calculation_result['1d']['sn']
         self.esn.value = "%.2f" % sn_ratio
