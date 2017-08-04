@@ -4,19 +4,23 @@ The WFIRST team at STScI has developed an [exposure time calculator](http://www.
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
+Would you like to view the [tutorial notebooks](#tutorial-notebooks), [play with the tools in a temporary environment in the cloud](#play-with-the-tools-in-a-temporary-environment-in-the-cloud), or [install the simulation tools locally](#install-the-simulation-tools-locally)?
+
+To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP). If you use GalSim's WFIRST capabilities, cite [Rowe *et al.* 2015]
+
 ## Tutorial notebooks
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) -- Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) -- Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
-  * [GalSim WFIRST Demo](./blob/master/notebooks/WFIRST%20GalSim%20Demo.ipynb) -- Simulate a sample of galaxies drawn on a single WFIRST Wide-Field Instrument detector. Derived from `demo13.py` in version 1.4.4 of the GalSim project. (**Note:** This uses the GalSim PSF model for WFIRST, which makes simplifying assumptions for speedier computation relative to WebbPSF.)
+  * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [GalSim WFIRST Demo](./blob/master/notebooks/WFIRST%20GalSim%20Demo.ipynb) — Simulate a sample of galaxies drawn on a single WFIRST Wide-Field Instrument detector. Derived from `demo13.py` in version 1.4.4 of the GalSim project. (**Note:** This uses the GalSim PSF model for WFIRST, which makes simplifying assumptions for speedier computation relative to WebbPSF.)
 
 ## Play with the tools in a temporary environment in the cloud
 
 We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
-To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master
+To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
 
 It may take a few minutes to start up. Feel free to explore and run example calculations. Launching an environment through Binder will always use the most recent supported versions of our tools.
 
@@ -46,6 +50,41 @@ If you wish to save code or output products, you **must** download them from the
 
 From time to time, we will release new versions of the tools or new notebooks. You can clone a fresh copy by following the instructions again, or use `git pull` from a terminal in the repository folder. (If you've run or modified your copies of the notebooks, you may want to make copies so your changes aren't clobbered. Use `git checkout .` to discard changes or `git stash` to temporarily stash them before `git pull`-ing.)
 
+### Troubleshooting
+
+#### When I run `./run.sh` I get `-bash: docker: command not found`
+
+You may not have Docker Community Edition installed correctly. Examine your `$PATH` environment variable, or consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
+
+#### When I run `./run.sh`, I get an error saying "context canceled"
+
+Sometimes you will see `Successfully tagged wfirst-tools:latest` in your terminal, but still get an error like this:
+
+```
+docker: Error response from daemon: driver failed programming external
+connectivity on endpoint eloquent_lewin
+(549b43e32ae795c446f14fd6408c72fe9ddf08dbb8bde1122c28299696eda064): Bind for
+127.0.0.1:8888 failed: port is already allocated.
+ERRO[0000] error waiting for container: context canceled
+```
+
+This means that port 8888 is already in use, either by a notebook server running on your computer, or by another Docker container. If you're pretty sure you aren't running anything on port 8888, you can use `docker ps` to see if the container is running:
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+e4cb3f9a0cb1        wfirst-tools        "tini -- start-not..."   3 minutes ago       Up 3 minutes        127.0.0.1:8888->8888/tcp   priceless_mirzakhani
+```
+
+You can use the name or container ID to stop it with `docker stop`:
+
+```
+$ docker stop e4cb3f9a0cb1
+e4cb3f9a0cb1
+```
+
+And then run `./run.sh` again.
+
 ## Install the simulation tools locally
 
 The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
@@ -58,6 +97,8 @@ Astroconda depends on [conda](https://conda.io/docs/), a system that can manage 
 
 If you are using another shell, bear in mind that you **must** start a bash login shell (`bash -l`) to follow this guide and to run the simulation tools in a `conda` environment.
 
+Commands for you to execute will be prefixed with a `$`. (You only need to type the part following the `$`.)
+
 ### Installing Astroconda
 
 If you have already installed Astroconda, skip ahead to "Creating a WFIRST Tools environment".
@@ -67,17 +108,19 @@ The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started
 The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-to-noise calculator that (for now) depends on Python 2.7. To create a Python 2.7 environment for WFIRST Simulation Tools, use the following command:
 
 ```
-conda create -n wfirst-tools --yes python=2.7 numpy scipy astropy \
-                                   ipython-notebook ipykernel \
-                                   pyfftw pysynphot photutils \
-                                   webbpsf webbpsf-data
+$ conda create -n wfirst-tools --yes python=2.7 numpy scipy astropy \
+                                     ipython-notebook ipykernel \
+                                     pyfftw pysynphot photutils \
+                                     webbpsf webbpsf-data
 ```
 
 This will create an environment called `wfirst-tools` containing the essential packages for WFIRST simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
 
 ```
-source activate wfirst-tools
+$ source activate wfirst-tools
 ```
+
+You should see a new prefix on your shell prompt. (If the prompt was `$` before, it should now look like `(wfirst-tools) $`.)
 
 Next, create a new directory somewhere with plenty of space to hold the reference files and navigate there in your terminal (with `cd /path/to/reference/file/space` or similar).
 
@@ -86,17 +129,17 @@ Next, create a new directory somewhere with plenty of space to hold the referenc
 To obtain the [reference data](http://pysynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
 
 ```
-curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
-curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
-curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
+(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
+(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
+(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
 ```
 
 This retrieves interstellar extinction curves, several spectral atlases, and a grid of stellar spectra derived from [PHOENIX](http://www.hs.uni-hamburg.de/index.php?option=com_content&view=article&id=14&Itemid=294&lang=en) models. Extract them into the current directory:
 
 ```
-tar xvzf ./synphot1.tar.gz
-tar xvzf ./synphot2.tar.gz
-tar xvzf ./synphot5.tar.gz
+(wfirst-tools) $ tar xvzf ./synphot1.tar.gz
+(wfirst-tools) $ tar xvzf ./synphot2.tar.gz
+(wfirst-tools) $ tar xvzf ./synphot5.tar.gz
 ```
 
 This will create a tree of files rooted at `grp/hst/cdbs/` in the current directory.
@@ -108,16 +151,16 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-pip install pandeia.engine==1.1
+(wfirst-tools) $ pip install pandeia.engine==1.1.1
 ```
 
-Note that the `==1.1` on the package name explicitly requests version 1.1, which is the version that is compatible with the bundled reference data.
+Note that the `==1.1.1` on the package name explicitly requests version 1.1.1, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (1.6 GB) as follows and extract:
 
 ```
-curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data.tar.gz
-tar xvzf ./pandeia_wfirst_data.tar.gz
+(wfirst-tools) $ curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data.tar.gz
+(wfirst-tools) $ tar xvzf ./pandeia_wfirst_data.tar.gz
 ```
 
 This creates a folder called `pandeia_wfirst_data` in the current directory.
@@ -135,13 +178,13 @@ Where you see `$(pwd)` in the following commands, substitute in the directory wh
 Configure the PySynphot CDBS path:
 
 ```
-export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
+(wfirst-tools) $ export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
 ```
 
 To test that pysynphot can find its reference files, use the following command:
 
 ```
-python -c "import warnings; warnings.simplefilter('ignore'); import pysynphot; print pysynphot.Icat('phoenix', 5750, 0.0, 4.5).name"
+(wfirst-tools) $ python -c "import warnings; warnings.simplefilter('ignore'); import pysynphot; print pysynphot.Icat('phoenix', 5750, 0.0, 4.5).name"
 ```
 
 If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot and its reference data files have been installed correctly.
@@ -149,13 +192,13 @@ If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot 
 Next, configure the Pandeia path:
 
 ```
-export pandeia_refdata="$(pwd)/pandeia_wfirst_data"
+(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_wfirst_data"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
 
 ```
-python -c 'from pandeia.engine.wfirst import WFIRSTImager; WFIRSTImager(mode="imaging")'
+(wfirst-tools) $ python -c 'from pandeia.engine.wfirst import WFIRSTImager; WFIRSTImager(mode="imaging")'
 ```
 
 If you do not see any errors, Pandeia was able to instantiate a WFIRST WFI model successfully.
@@ -165,7 +208,7 @@ If you do not see any errors, Pandeia was able to instantiate a WFIRST WFI model
 In a terminal where you have run `source activate wfirst-tools` and set the above environment variables, navigate to the directory where you would like to keep the example notebooks and clone this repository from GitHub:
 
 ```
-git clone git@github.com:josePhoenix/wfirst-tools.git
+(wfirst-tools) $ git clone git@github.com:spacetelescope/wfirst-tools.git
 ```
 
 This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
@@ -174,3 +217,8 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/mperrin/webbpsf/issues (choose the green "New Issue" button after logging in).
 
+  * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
+  * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/mperrin/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
+  * [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP)
+  * [Pandeia tutorials on Space Telescope's GitHub](https://github.com/spacetelescope/pandeia-tutorials)
+  * [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768)
