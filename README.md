@@ -208,7 +208,7 @@ If you do not see any errors, Pandeia was able to instantiate a WFIRST WFI model
 In a terminal where you have run `source activate wfirst-tools` and set the above environment variables, navigate to the directory where you would like to keep the example notebooks and clone this repository from GitHub:
 
 ```
-(wfirst-tools) $ git clone git@github.com:spacetelescope/wfirst-tools.git
+(wfirst-tools) $ git clone https://github.com/spacetelescope/wfirst-tools.git
 ```
 
 This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
