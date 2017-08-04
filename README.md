@@ -1,19 +1,26 @@
 # WFIRST Simulation Tools
 
-## View examples with `nbviewer`
+The WFIRST team at STScI has developed an [exposure time calculator](http://www.stsci.edu/wfirst/software/Pandeia) and [a PSF model](http://www.stsci.edu/wfirst/software/webbpsf) for the science community to plan how they will use WFIRST. These tools are available separately as the [Pandeia exposure time calculator engine](http://www.stsci.edu/wfirst/software/Pandeia) and [WebbPSF point spread function modeling package](http://www.stsci.edu/wfirst/software/webbpsf), but are provided here with comprehensive setup documentation for local installation as well as tutorials on their use.
 
-The notebook files in this repository can be viewed (read-only) with [nbviewer](http://nbviewer.jupyter.org), a service of the Jupyter project.
+**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
-[View the getting started notebook](https://nbviewer.jupyter.org/github/josePhoenix/wfirst-tools/blob/master/Getting%20Started.ipynb).
+## Tutorial notebooks
 
+The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
+
+  * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) -- Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) -- Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [GalSim WFIRST Demo](./blob/master/notebooks/WFIRST%20GalSim%20Demo.ipynb) -- Simulate a sample of galaxies drawn on a single WFIRST Wide-Field Instrument detector. Derived from `demo13.py` in version 1.4.4 of the GalSim project. (**Note:** This uses the GalSim PSF model for WFIRST, which makes simplifying assumptions for speedier computation relative to WebbPSF.)
 
 ## Play with the tools in a temporary environment in the cloud
 
 We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
-To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/josePhoenix/wfirst-tools/master
+To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master
 
-It may take a few minutes to start up. (Probably because there's over 3 GB of reference data involved!) Feel free to explore and run example calculations. Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the cloud whence it came.
+It may take a few minutes to start up. Feel free to explore and run example calculations. Launching an environment through Binder will always use the most recent supported versions of our tools.
+
+Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the cloud whence it came.
 
 If you wish to save code or output products, you **must** download them from the Jupyter interface. (Or, better yet, switch to a local installation of the tools!)
 
@@ -33,11 +40,17 @@ If you wish to save code or output products, you **must** download them from the
 
   Open that URL in a browser, and you'll see a Jupyter notebook interface to an environment with the tools available. (The `run.sh` script forwards `localhost:8888` to the same port in the container, so you can copy the URL as-is.)
 
+**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
+
+### Keeping your environment up to date
+
+From time to time, we will release new versions of the tools or new notebooks. You can clone a fresh copy by following the instructions again, or use `git pull` from a terminal in the repository folder. (If you've run or modified your copies of the notebooks, you may want to make copies so your changes aren't clobbered. Use `git checkout .` to discard changes or `git stash` to temporarily stash them before `git pull`-ing.)
+
 ## Install the simulation tools locally
 
 The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
 
-STIPS, the Space Telescope Image Product Simulator, is not currently available for local installation. See the page at http://www.stsci.edu/wfirst/software/STIPS for information on obtaining access to STIPS.
+*STIPS, the Space Telescope Image Product Simulator, is not currently available for local installation. See the page at http://www.stsci.edu/wfirst/software/STIPS for information on obtaining access to STIPS.*
 
 ### Before we begin
 
@@ -95,19 +108,19 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-pip install pandeia.engine==1.0
+pip install pandeia.engine==1.1
 ```
 
-(Note that the `==1.0` on the package name explicitly requests version 1.0, the only version that currently works for WFIRST calculations.)
+Note that the `==1.1` on the package name explicitly requests version 1.1, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (1.6 GB) as follows and extract:
 
 ```
-curl -OL http://ssb.stsci.edu/pandeia/engine/1.0/pandeia_data-1.0.tar.gz
-tar xvzf ./pandeia_data-1.0.tar.gz
+curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data.tar.gz
+tar xvzf ./pandeia_wfirst_data.tar.gz
 ```
 
-This creates a folder called `pandeia-data-1.0` in the current directory.
+This creates a folder called `pandeia_wfirst_data` in the current directory.
 
 ## Running the simulation tools locally
 
@@ -136,7 +149,7 @@ If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot 
 Next, configure the Pandeia path:
 
 ```
-export pandeia_refdata="$(pwd)/pandeia-data-1.0"
+export pandeia_refdata="$(pwd)/pandeia_wfirst_data"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
