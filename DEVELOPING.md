@@ -34,4 +34,4 @@ The Dockerfile uses environment variables to define the versions of software use
 The variables are defined close to where they are used, as updating them busts the cache for all the following `Dockerfile` commands.
 
 To verify that the `Dockerfile` updates worked, run `./run.sh` before committing and pushing.
-    - Outdated: Once you have pushed your commits, visit https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master to run a build of the Binder container image. (Otherwise, the first person to try and follow the Binder link will have to wait through an entire build!)
+Outdated: Once you have pushed your commits, visit https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master to run a build of the Binder container image. (Otherwise, the first person to try and follow the Binder link will have to wait through an entire build!)
