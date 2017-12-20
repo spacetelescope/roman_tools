@@ -94,7 +94,7 @@ RUN scons \
 WORKDIR $HOME
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.1.1
+ENV PANDEIA_VERSION 1.2
 RUN pip2 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 RUN pip3 install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 

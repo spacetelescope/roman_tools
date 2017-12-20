@@ -138,10 +138,10 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.1.1
+(wfirst-tools) $ pip install pandeia.engine==1.2
 ```
 
-Note that the `==1.1.1` on the package name explicitly requests version 1.1.1, which is the version that is compatible with the bundled reference data.
+Note that the `==1.2` on the package name explicitly requests version 1.2, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (1.6 GB) as follows and extract:
 
