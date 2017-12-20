@@ -1,4 +1,4 @@
-# Developing the WFIRST Tools
+# Developing the WFIRST Tools (Outdated: now using Pandeia 1.2)
 
 ## Generating a WFIRST Pandeia data package
 
