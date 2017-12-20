@@ -6,7 +6,7 @@ The WFIRST team at STScI has developed an [exposure time calculator](http://www.
 
 Would you like to view the [tutorial notebooks](#tutorial-notebooks) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
-To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP). If you use GalSim's WFIRST capabilities, cite [Rowe *et al.* 2015]
+To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP).
 
 ## Tutorial notebooks
 
@@ -14,7 +14,6 @@ The tutorials are stored as Jupyter Notebooks--documents which interleave code, 
 
   * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
   * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
-  * [GalSim WFIRST Demo](./blob/master/notebooks/WFIRST%20GalSim%20Demo.ipynb) — Simulate a sample of galaxies drawn on a single WFIRST Wide-Field Instrument detector. Derived from `demo13.py` in version 1.4.4 of the GalSim project. (**Note:** This uses the GalSim PSF model for WFIRST, which makes simplifying assumptions for speedier computation relative to WebbPSF.)
 
 ## Run locally in a container with Docker
 
