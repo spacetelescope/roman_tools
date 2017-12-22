@@ -43,10 +43,11 @@ From time to time, we will release new versions of the tools or new notebooks. Y
 
 1. Make sure you have Docker Community Edition installed correctly.
 2. Make sure to include the path to Docker in your `PATH` environment variable. For example include the following line in your bashrc file:
+
+If Docker is located in `/usr/local/bin`
 ```
 export PATH=/usr/local/bin:$PATH
 ```
-If Docker is located in `/usr/local/bin`.
 
 3. Consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
 
