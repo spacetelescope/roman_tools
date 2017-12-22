@@ -17,7 +17,7 @@ The tutorials are stored as Jupyter Notebooks--documents which interleave code, 
 
 ## Run locally in a container with Docker
 
-1. Start by installing the free [Docker Community Edition](https://www.docker.com/community-edition) locally. This will make the `docker` command available in your terminal.
+1. Start by installing the free [Docker Community Edition](https://www.docker.com/community-edition) locally. This will make the `docker` command available in your terminal. Note that after installing docker, you must open the application once for docker to be available from the command line.
 2. Clone this repository to a folder on your computer and `cd` into it.
 3. Execute `./run.sh` to build and start a Docker container. (The first time you build the container, you will have to download a lot of data files, but subsequent builds will be quick.) You should see a lot of output, ending with something like:
 
@@ -41,7 +41,14 @@ From time to time, we will release new versions of the tools or new notebooks. Y
 
 #### When I run `./run.sh` I get `-bash: docker: command not found`
 
-You may not have Docker Community Edition installed correctly. Examine your `$PATH` environment variable, or consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
+1. Make sure you have Docker Community Edition installed correctly.
+2. Make sure to include the path to Docker in your `PATH` environment variable. For example include the following line in your bashrc file:
+```
+export PATH=/usr/local/bin:$PATH
+```
+If Docker is located in `/usr/local/bin`.
+
+3. Consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
 
 #### When I run `./run.sh`, I get an error saying "context canceled"
 
