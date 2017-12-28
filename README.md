@@ -4,9 +4,9 @@ The WFIRST team at STScI has developed an [exposure time calculator](http://www.
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
-Would you like to view the [tutorial notebooks](#tutorial-notebooks), [play with the tools in a temporary environment in the cloud](#play-with-the-tools-in-a-temporary-environment-in-the-cloud), or [install the simulation tools locally](#install-the-simulation-tools-locally)?
+Would you like to view the [tutorial notebooks](#tutorial-notebooks) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
-To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP). If you use GalSim's WFIRST capabilities, cite [Rowe *et al.* 2015]
+To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP).
 
 ## Tutorial notebooks
 
@@ -14,23 +14,10 @@ The tutorials are stored as Jupyter Notebooks--documents which interleave code, 
 
   * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
   * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
-  * [GalSim WFIRST Demo](./blob/master/notebooks/WFIRST%20GalSim%20Demo.ipynb) — Simulate a sample of galaxies drawn on a single WFIRST Wide-Field Instrument detector. Derived from `demo13.py` in version 1.4.4 of the GalSim project. (**Note:** This uses the GalSim PSF model for WFIRST, which makes simplifying assumptions for speedier computation relative to WebbPSF.)
-
-## Play with the tools in a temporary environment in the cloud
-
-We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
-
-To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
-
-It may take a few minutes to start up. Feel free to explore and run example calculations. Launching an environment through Binder will always use the most recent supported versions of our tools.
-
-Simulation products can be saved and retrieved through the file browser, but the environment is **temporary**. After a certain time period, the entire environment will be shut down and the resources returned to the cloud whence it came.
-
-If you wish to save code or output products, you **must** download them from the Jupyter interface. (Or, better yet, switch to a local installation of the tools!)
 
 ## Run locally in a container with Docker
 
-1. Start by installing the free [Docker Community Edition](https://www.docker.com/community-edition) locally. This will make the `docker` command available in your terminal.
+1. Start by installing the free [Docker Community Edition](https://www.docker.com/community-edition) locally. This will make the `docker` command available in your terminal. Note that after installing docker, you must open the application once for docker to be available from the command line.
 2. Clone this repository to a folder on your computer and `cd` into it.
 3. Execute `./run.sh` to build and start a Docker container. (The first time you build the container, you will have to download a lot of data files, but subsequent builds will be quick.) You should see a lot of output, ending with something like:
 
@@ -54,7 +41,15 @@ From time to time, we will release new versions of the tools or new notebooks. Y
 
 #### When I run `./run.sh` I get `-bash: docker: command not found`
 
-You may not have Docker Community Edition installed correctly. Examine your `$PATH` environment variable, or consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
+1. Make sure you have Docker Community Edition installed correctly.
+2. Make sure to include the path to Docker in your `PATH` environment variable. For example include the following line in your bashrc file:
+
+If Docker is located in `/usr/local/bin`
+```
+export PATH=/usr/local/bin:$PATH
+```
+
+3. Consult the [Docker manual](https://docs.docker.com/manuals/) section on troubleshooting.
 
 #### When I run `./run.sh`, I get an error saying "context canceled"
 
@@ -151,10 +146,10 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.1.1
+(wfirst-tools) $ pip install pandeia.engine==1.2
 ```
 
-Note that the `==1.1.1` on the package name explicitly requests version 1.1.1, which is the version that is compatible with the bundled reference data.
+Note that the `==1.2` on the package name explicitly requests version 1.2, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (1.6 GB) as follows and extract:
 
