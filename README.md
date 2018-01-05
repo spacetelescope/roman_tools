@@ -151,7 +151,7 @@ Pandeia is available through PyPI (the Python Package Index), rather than Astroc
 
 Note that the `==1.2.1` on the package name explicitly requests version 1.2.1, which is the version that is compatible with the bundled reference data.
 
-Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (54 MB) as follows and extract:
+Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
 (wfirst-tools) $ curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data.tar.gz
