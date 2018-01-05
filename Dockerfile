@@ -54,7 +54,7 @@ RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.2
+ENV PANDEIA_VERSION 1.2.1
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
