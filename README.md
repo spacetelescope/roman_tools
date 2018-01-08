@@ -154,7 +154,7 @@ Note that the `==1.2.1` on the package name explicitly requests version 1.2.1, w
 Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data-1.2.1.tar.gz
+(wfirst-tools) $ curl -OL http://ssb.stsci.edu/pandeia/engine/1.2.1/pandeia_wfirst_data-1.2.1.tar.gz
 (wfirst-tools) $ tar xvzf ./pandeia_wfirst_data-1.2.1.tar.gz
 ```
 
