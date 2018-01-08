@@ -13,7 +13,7 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
   * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-WFIRST Imaging](./blob/master/notebooks/Pandeia-WFIRST%20Imaging.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [Pandeia-WFIRST Tutorial](./blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Run locally in a container with Docker
 
@@ -146,16 +146,16 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.2
+(wfirst-tools) $ pip install pandeia.engine==1.2.1
 ```
 
-Note that the `==1.2` on the package name explicitly requests version 1.2, which is the version that is compatible with the bundled reference data.
+Note that the `==1.2.1` on the package name explicitly requests version 1.2.1, which is the version that is compatible with the bundled reference data.
 
-Pandeia also depends on a collection of reference data to define the characteristics of the JWST and WFIRST instruments. Download it (1.6 GB) as follows and extract:
+Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL https://github.com/spacetelescope/wfirst-tools/raw/master/pandeia_wfirst_data.tar.gz
-(wfirst-tools) $ tar xvzf ./pandeia_wfirst_data.tar.gz
+(wfirst-tools) $ curl -OL http://ssb.stsci.edu/pandeia/engine/1.2.1/pandeia_wfirst_data-1.2.1.tar.gz
+(wfirst-tools) $ tar xvzf ./pandeia_wfirst_data-1.2.1.tar.gz
 ```
 
 This creates a folder called `pandeia_wfirst_data` in the current directory.
