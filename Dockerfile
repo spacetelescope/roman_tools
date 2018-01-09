@@ -29,7 +29,7 @@ ENV pandeia_refdata /opt/pandeia_data-1.2.1_wfirst
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
 # to prevent unnecessary rebuilds of the Docker image)
-ENV WEBBPSF_DATA_VERSION 0.6.0
+ENV WEBBPSF_DATA_VERSION 0.6.1
 RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
 ENV WEBBPSF_PATH /opt/webbpsf-data
 
@@ -59,7 +59,7 @@ ENV PANDEIA_VERSION 1.2.1
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
-ENV WEBBPSF_VERSION 0.6.0
+ENV WEBBPSF_VERSION 0.6.1
 RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 
 #
