@@ -52,6 +52,8 @@ ENV EXTRA_PACKAGES astropy pyfftw pysynphot photutils future pyyaml pandas
 RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 
+RUN pip install ipywidgets==7.0.0
+
 # Install Pandeia
 ENV PANDEIA_VERSION 1.2.1
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
