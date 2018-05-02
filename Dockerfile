@@ -17,9 +17,9 @@ RUN chown $NB_USER /opt
 USER $NB_USER
 WORKDIR /opt
 # Extract PySynphot reference data
-RUN wget -qO- ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz | tar xvz
-RUN wget -qO- ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz | tar xvz
-RUN wget -qO- ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
+RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot1.tar.gz | tar xvz
+RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot2.tar.gz | tar xvz
+RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
 ENV PYSYN_CDBS /opt/grp/hst/cdbs
 
 # Extract Pandeia reference data
@@ -48,7 +48,7 @@ RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
 # Install WFIRST Simulation Tools dependencies for python2 and python3
 # from conda:
-ENV EXTRA_PACKAGES astropy pyfftw pysynphot photutils future pyyaml pandas
+ENV EXTRA_PACKAGES astropy=2.0.6 pyfftw pysynphot photutils future pyyaml pandas
 RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 
