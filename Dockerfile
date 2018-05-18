@@ -62,7 +62,7 @@ RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 ENV WEBBPSF_VERSION 0.6.0
 #RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 RUN pip install git+git://github.com/mperrin/webbpsf.git@master
-
+RUN pip install git+git://github.com/mperrin/poppy.git
 #
 # Prepare files and permissions
 #
