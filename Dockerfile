@@ -10,7 +10,6 @@ WORKDIR $HOME
 #
 # Install reference data under /opt
 #
-RUN echo "Dummy"
 USER root
 RUN mkdir -p /opt
 RUN chown $NB_USER /opt
@@ -61,7 +60,8 @@ RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
 ENV WEBBPSF_VERSION 0.6.0
-RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
+#RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
+RUN pip install git+git://github.com/mperrin/webbpsf.git@master
 
 #
 # Prepare files and permissions
