@@ -10,6 +10,7 @@ WORKDIR $HOME
 #
 # Install reference data under /opt
 #
+RUN echo "Dummy"
 USER root
 RUN mkdir -p /opt
 RUN chown $NB_USER /opt
