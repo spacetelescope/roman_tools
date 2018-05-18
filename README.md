@@ -19,7 +19,7 @@ The tutorials are stored as Jupyter Notebooks--documents which interleave code, 
 
 We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
-To launch in Binder *(beta)*, follow this URL: https://beta.mybinder.org/v2/gh/spacetelescope/wfirst-tools/master (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
+To launch in Binder *(beta)*, follow this URL: https://mybinder.org/v2/gh/spacetelescope/wfirst-tools/master (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
 
 It may take a few minutes to start up. Feel free to explore and run example calculations. Launching an environment through Binder will always use the most recent supported versions of our tools.
 
