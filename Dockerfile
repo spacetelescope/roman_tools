@@ -55,7 +55,7 @@ RUN conda install --quiet --yes $EXTRA_PACKAGES && \
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.2.1
+ENV PANDEIA_VERSION 1.2.2
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
