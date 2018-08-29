@@ -61,8 +61,8 @@ RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 # Install WebbPSF
 ENV WEBBPSF_VERSION 0.7.0
 #RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
-RUN pip install git+git://github.com/mperrin/webbpsf.git@master
-RUN pip install git+git://github.com/mperrin/poppy.git
+RUN pip install git+git://github.com/spacetelescope/webbpsf.git@master
+RUN pip install git+git://github.com/spacetelescope/poppy.git
 #
 # Prepare files and permissions
 #

@@ -222,10 +222,10 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 ## Resources
 
-The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/mperrin/webbpsf/issues (choose the green "New Issue" button after logging in).
+The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
 
   * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
-  * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/mperrin/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
+  * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/spacetelescope/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
   * [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP)
   * [Pandeia tutorials on Space Telescope's GitHub](https://github.com/spacetelescope/pandeia-tutorials)
   * [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768)
