@@ -96,7 +96,7 @@ And then run `./run.sh` again.
 
 The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
 
-*STIPS, the Space Telescope Image Product Simulator, is not currently available for local installation. See the page at http://www.stsci.edu/wfirst/software/STIPS for information on obtaining access to STIPS.*
+STIPS, the Space Telescope Image Product Simulator, is available at https://github.com/spacetelescope/STScI-STIPS.
 
 ### Before we begin
 
@@ -222,10 +222,11 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 ## Resources
 
-The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
+Users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.
 
   * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
   * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/spacetelescope/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
   * [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP)
+  * How to use the ETC python code interface: [JWST ETC Pandeia Engine Tutorial](http:///jwst-docs.stsci.edu/display/JPP/JWST+ETC+Pandeia+Engine+Tutorial "JWST ETC Pandeia Engine Tutorial")
   * [Pandeia tutorials on Space Telescope's GitHub](https://github.com/spacetelescope/pandeia-tutorials)
   * [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768)
