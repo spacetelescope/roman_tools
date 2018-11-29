@@ -94,9 +94,9 @@ And then run `./run.sh` again.
 
 ## Install the simulation tools locally
 
-The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
-
 STIPS, the Space Telescope Image Product Simulator, is available at https://github.com/spacetelescope/STScI-STIPS.
+
+The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
 
 ### Before we begin
 
@@ -221,6 +221,8 @@ In a terminal where you have run `source activate wfirst-tools` and set the abov
 This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
 
 ## Resources
+
+The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
 
 Users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.
 
