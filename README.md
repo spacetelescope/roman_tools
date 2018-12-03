@@ -222,7 +222,6 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 Pandeia users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.  For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
 
-Users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.
 
   * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
   * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/spacetelescope/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
