@@ -1,6 +1,6 @@
 # WFIRST Simulation Tools
 
-The WFIRST team at STScI has developed an [exposure time calculator](http://www.stsci.edu/wfirst/software/Pandeia) and [a PSF model](http://www.stsci.edu/wfirst/software/webbpsf) for the science community to plan how they will use WFIRST. These tools are available separately as the [Pandeia exposure time calculator engine](http://www.stsci.edu/wfirst/software/Pandeia) and [WebbPSF point spread function modeling package](http://www.stsci.edu/wfirst/software/webbpsf), but are provided here with comprehensive setup documentation for local installation as well as tutorials on their use.
+The WFIRST team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use WFIRST. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
@@ -95,8 +95,6 @@ And then run `./run.sh` again.
 ## Install the simulation tools locally
 
 The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
-
-*STIPS, the Space Telescope Image Product Simulator, is not currently available for local installation. See the page at http://www.stsci.edu/wfirst/software/STIPS for information on obtaining access to STIPS.*
 
 ### Before we begin
 
@@ -222,10 +220,12 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 ## Resources
 
-The STScI helpdesk at help@stsci.edu is available for members of the WFIRST scientific community. For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
+Pandeia users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.  For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
+
 
   * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
   * [WebbPSF JWST quickstart notebook](http://nbviewer.jupyter.org/github/spacetelescope/webbpsf/blob/master/notebooks/WebbPSF_tutorial.ipynb)
   * [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP)
+  * How to use the ETC python code interface: [JWST ETC Pandeia Engine Tutorial](http:///jwst-docs.stsci.edu/display/JPP/JWST+ETC+Pandeia+Engine+Tutorial "JWST ETC Pandeia Engine Tutorial")
   * [Pandeia tutorials on Space Telescope's GitHub](https://github.com/spacetelescope/pandeia-tutorials)
   * [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768)
