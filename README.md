@@ -1,6 +1,6 @@
 # WFIRST Simulation Tools
 
-The WFIRST team at STScI has developed an [exposure time calculator](http://www.stsci.edu/wfirst/software/Pandeia) and [a PSF model](http://www.stsci.edu/wfirst/software/webbpsf) for the science community to plan how they will use WFIRST. These tools are available separately as the [Pandeia exposure time calculator engine](http://www.stsci.edu/wfirst/software/Pandeia) and [WebbPSF point spread function modeling package](http://www.stsci.edu/wfirst/software/webbpsf), but are provided here with comprehensive setup documentation for local installation as well as tutorials on their use.
+The WFIRST team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use WFIRST. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
@@ -95,8 +95,6 @@ And then run `./run.sh` again.
 ## Install the simulation tools locally
 
 The WebbPSF point-spread function model and Pandeia exposure time calculator engine are currently available for local installation by members of the science community. The required packages are distributed as part of Astroconda, a suite of astronomy-focused software packages for use with the [conda](https://conda.io/docs/) package manager for macOS and Linux.
-
-STIPS, the Space Telescope Image Product Simulator, is available at https://github.com/spacetelescope/STScI-STIPS.
 
 ### Before we begin
 
