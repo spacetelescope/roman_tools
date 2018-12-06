@@ -23,8 +23,8 @@ RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
 ENV PYSYN_CDBS /opt/grp/hst/cdbs
 
 # Extract Pandeia reference data
-RUN wget -qO- http://ssb.stsci.edu/pandeia/engine/1.2.1/pandeia_wfirst_data-1.2.1.tar.gz | tar xvz
-ENV pandeia_refdata /opt/pandeia_data-1.2.1_wfirst
+RUN wget -qO- http://ssb.stsci.edu/pandeia/engine/1.3/pandeia_data-1.3_wfirst.tar.gz | tar xvz
+ENV pandeia_refdata /opt/pandeia_data-1.3_wfirst_release
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
@@ -55,7 +55,7 @@ RUN conda install --quiet --yes $EXTRA_PACKAGES && \
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.2.2
+ENV PANDEIA_VERSION 1.3
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
