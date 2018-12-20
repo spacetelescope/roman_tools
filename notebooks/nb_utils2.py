@@ -613,12 +613,13 @@ class WFIRST_gui(object):
         self.plot1d_bg_only = widgets.Output()
         self.plot1d_sn = widgets.Output()
 
-        self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation,
-                                                 self.plot2d_ngroups_map])
+        #self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation,
+        #                                         self.plot2d_ngroups_map])
+        self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation])
         self.plot2d_form.set_title(0,'SNR')
         self.plot2d_form.set_title(1,'Detector')
         self.plot2d_form.set_title(2,'Saturation')
-        self.plot2d_form.set_title(3,'Groups Before Saturation')
+        #self.plot2d_form.set_title(3,'Groups Before Saturation')
 
         self.plot1d_form = widgets.Tab(children=[self.plot1d_flux, self.plot1d_bg_only, self.plot1d_sn])
         self.plot1d_form.set_title(0,'Flux')
@@ -720,9 +721,9 @@ class WFIRST_gui(object):
             self.plot2d('saturation', ' ')
             clr = clear_output(wait=True)
 
-        with self.plot2d_ngroups_map:
-            self.plot2d('ngroups_map', '#')
-            clr = clear_output(wait=True)
+        #with self.plot2d_ngroups_map:
+        #    self.plot2d('ngroups_map', '#')
+        #    clr = clear_output(wait=True)
 
         with self.plot1d_flux:
             self.plot1d('extracted_flux', 'mJy')
