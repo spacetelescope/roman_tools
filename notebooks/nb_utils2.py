@@ -25,7 +25,7 @@ refdata = os.environ['pandeia_refdata']
 
 dummy = None
 geom_mapping = {'Point Source': 'point', 'Flat':'flat', 'Power Law': 'power', '2D Gaussian': 'gaussian2d',
-                'Sersic (Effective Radius)': 'sersic', 'Sersic (Scale Radius)': 'sersic_scale'}
+                'Sersic (Effective Radius)': 'sersic', 'Sersic (Scale Radius)': 'sersic'}
 norm_mapping = {'infinity': 'integ_infinity', 'scale radius': 'surf_scale', 'center': 'surf_center'}
 
 """
@@ -189,7 +189,7 @@ class SourceObj(object):
 
         # Flux
         self.flux_box = widgets.HBox(padding='10px', width="100%")
-        self.flux = widgets.BoundedFloatText(description="Source flux: ", min=0.0, max=1.0e30, value=18.0)
+        self.flux = widgets.BoundedFloatText(description="Source flux: ", min=0.0, max=1.0e30, value=23.0)
         self.funits = widgets.Dropdown(value='abmag', options=['abmag', 'njy', 'ujy', 'mjy', 'jy'])
         atwave = widgets.HTML(value=" at ", margin='5px')
         self.wave = widgets.BoundedFloatText(min=0.1, max=99999.0, value=1.5)
@@ -225,15 +225,15 @@ class SourceObj(object):
         # Geometry
         # The selector goes in one box, and all the geometry selections goes in another so that items can be activated/
         # deactivated as needed.
-        self.geom_box = widgets.VBox(padding='10px', width="100%")
-        self.source_box = widgets.HBox(padding='10px', width="100%")
+        self.geom_box = widgets.VBox(width="100%")
+        self.source_box = widgets.HBox(width="100%")
         #profile_config_file = os.path.join(refdata, 'source', 'config.json')
         #self.profile_config = get_config(profile_config_file)
         self.src_select = widgets.Dropdown(description="Profile: ", options=['Point Source', 'Flat', '2D Gaussian',
                                                                              'Sersic (Scale Radius)'],
                                              value='Point Source')
         self.source_box.children = [self.src_select]
-        self.prof_box = widgets.VBox(padding='10px', width="100%")
+        self.prof_box = widgets.VBox(width="100%")
 
         style = {'description_width': 'initial'}
 
@@ -243,7 +243,7 @@ class SourceObj(object):
         self.minor = widgets.FloatText(description="Semiminor (arcsec): ", value=0.25, style=style)
         #self.r_core = widgets.FloatText(description="Core Radius (arcsec): ", value=0.005, style=style)
         self.pos_a = widgets.BoundedFloatText(description="Orientation (deg): ", value=0, min=0, max=359.9, style=style)
-        self.sersic = widgets.FloatSlider(description="Sersic Index: ", value=0.5, min=0.3, max=4, orientation='horizontal', style=style, overflow=None)
+        self.sersic = widgets.FloatSlider(description="Sersic Index: ", value=0.5, min=0.3, max=4, readout_format='.1f', style=style)
         #self.power = widgets.FloatSlider(description="Power Index: ", value=1, min=0.1, max=10, style=style)
         self.norm = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'scale radius', 'center'], style=style)
         self.norm_flat = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'center'], style=style)
@@ -397,7 +397,7 @@ class InstObj(object):
         self.inst_box.children = [self.filt, self.disp]
 
         self.det_box = widgets.HBox(padding='10px', width="100%")
-        self.ngroups = widgets.BoundedIntText(description="Groups: ", min=3, max=999, value=13, width=30)
+        self.ngroups = widgets.BoundedIntText(description="Groups: ", min=3, max=999, value=6, width=30)
         self.nints = widgets.BoundedIntText(description="Integrations: ", min=1, max=999, value=1, width=30)
         self.nexps = widgets.BoundedIntText(description="Exposures: ", min=1, max=999, value=1, width=30)
         self.det_box.children = [self.ngroups, self.nints, self.nexps]
@@ -541,10 +541,12 @@ class WFIRST_gui(object):
                                        "<ul>"
                                        "<li>Subarray '1024x1024', which has a similar frame time (2.7s) as that "
                                        "expected for the WFIRST WFI. </li>"
+                                       #"<li>WFIRST does not currently anticipate resetting the detector during an "
+                                       #"exposure.  Thus Integrations should be set to 1.</li>"
                                        "<li><i>To approximate the current design for the High Latitude Imaging "
-                                       "Survey:</i> readmode 'medium8' with Ngroups = 13 </li>"
+                                       "Survey:</i> readmode 'medium8' with Ngroups = 6 </li>"
                                        "<li><i>To approximate the current design for the High Latitude Spectroscopic "
-                                       "Survey:</i> readmode 'medium8' with Ngroups = 6</li> "
+                                       "Survey:</i> readmode 'medium8' with Ngroups = 13</li> "
                                        "<li><i>To approximate the current design for the Exoplanet Microlensing "
                                        "Survey:</i> readmode 'shallow2' with Ngroups = 4</li")
 
@@ -635,6 +637,9 @@ class WFIRST_gui(object):
         tlab3 = widgets.HTML(value="       <b>Exposure Time (sec): <b>", margin='5px')
         self.etime = widgets.HTML(value="0.0", margin='5px')
 
+        self.computing_notice = widgets.HTML(value="<i>Calculating... please wait.</i>", margin='5px')
+        self.computing_notice.layout.display = 'none'
+
         self.tab_form = widgets.HBox(padding='10px', width="100%", pack='center')
         self.tab_form.children = [tlab1, self.esn, tlab2, self.eflux, tlab3, self.etime]
 
@@ -654,6 +659,7 @@ class WFIRST_gui(object):
             self.strat_form,
             linebreak,
             self.calc_button,
+            self.computing_notice,
             self.result_form
         ]
 
@@ -685,7 +691,11 @@ class WFIRST_gui(object):
     def plot1d(self, plotname, unitstring):
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        im = ax1.plot(self.r['1d'][plotname][0], self.r['1d'][plotname][1])
+        # single points (imaging, for example) need to be scatter-plotted.
+        if len(self.r['1d'][plotname][0]) == 1:
+            im = ax1.scatter(self.r['1d'][plotname][0], self.r['1d'][plotname][1])
+        else:
+            im = ax1.plot(self.r['1d'][plotname][0], self.r['1d'][plotname][1])
         ax1.set_ylabel(unitstring)
         ax1.set_xlabel('microns')
         plt.tight_layout()
@@ -766,6 +776,8 @@ class WFIRST_gui(object):
             self.flux.value = 1.0
 
     def run_calc(self, b):
+        # notify the user that we're calculating.
+        self.computing_notice.layout.display = 'inline'
         calc_mode = self.mode_select.value.lower()
         calc_strat = self.strat_select[calc_mode].value.lower()
         c = build_default_calc("wfirst", "wfirstimager", calc_mode, method=calc_strat)
@@ -849,4 +861,5 @@ class WFIRST_gui(object):
 
         self.update_plots()
         # Now set the result form to be shown
+        self.computing_notice.layout.display = 'none'
         self.result_form.layout.display = 'inline'
