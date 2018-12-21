@@ -4,7 +4,7 @@ The WFIRST team at STScI has developed an exposure time calculator, a PSF model,
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
-Would you like to [launch the tools in a temporary environment in the cloudtutorial notebooks](#Play with the tools in a temporary environment in the cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
+Would you like to [launch the tools in a temporary environment in the cloud](#Play with the tools in a temporary environment in the cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
 To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP).
 
