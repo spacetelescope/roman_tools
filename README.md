@@ -2,7 +2,7 @@
 
 The WFIRST team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use WFIRST. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
 
-Would you like to [launch the tools in a temporary environment in the cloud](#Play with the tools in a temporary environment in the cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
+Would you like to [launch the tools in a temporary environment in the cloud](#Play-with-the-tools-in-a-temporary-environment-in-the-cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
 **To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
