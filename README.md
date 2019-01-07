@@ -2,9 +2,9 @@
 
 The WFIRST team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use WFIRST. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
 
-**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
+Would you like to [launch the tools in a temporary environment in the cloud](#Play-with-the-tools-in-a-temporary-environment-in-the-cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
-Would you like to view the [tutorial notebooks](#tutorial-notebooks) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
+**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
 To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP).
 
@@ -12,8 +12,8 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-WFIRST Tutorial](./blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-WFIRST Tutorial](./blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [WebbPSF-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
 
@@ -43,7 +43,6 @@ If you wish to save code or output products, you **must** download them from the
 
   Open that URL in a browser, and you'll see a Jupyter notebook interface to an environment with the tools available. (The `run.sh` script forwards `localhost:8888` to the same port in the container, so you can copy the URL as-is.)
 
-**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
 ### Keeping your environment up to date
 
@@ -113,10 +112,12 @@ The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started
 The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-to-noise calculator that (for now) depends on Python 2.7. To create a Python 2.7 environment for WFIRST Simulation Tools, use the following command:
 
 ```
-$ conda create -n wfirst-tools --yes python=2.7 numpy scipy astropy \
-                                     ipython-notebook ipykernel \
-                                     pyfftw pysynphot photutils \
-                                     webbpsf webbpsf-data
+$ conda create -n wfirst-tools --yes python=3.6 astropy=2.0.6 \
+                                    pyfftw pysynphot photutils \
+                                    future pyyaml pandas \
+                                    webbpsf==0.8 webbpsf-data==0.8
+
+
 ```
 
 This will create an environment called `wfirst-tools` containing the essential packages for WFIRST simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
@@ -156,10 +157,10 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.2.1
+(wfirst-tools) $ pip install pandeia.engine==1.2.2
 ```
 
-Note that the `==1.2.1` on the package name explicitly requests version 1.2.1, which is the version that is compatible with the bundled reference data.
+Note that the `==1.2.2` on the package name explicitly requests version 1.2.2, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
@@ -197,7 +198,7 @@ If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot 
 Next, configure the Pandeia path:
 
 ```
-(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_wfirst_data"
+(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.2.1_wfirst"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
