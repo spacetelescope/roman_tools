@@ -25,7 +25,7 @@ refdata = os.environ['pandeia_refdata']
 
 dummy = None
 geom_mapping = {'Point Source': 'point', 'Flat':'flat', 'Power Law': 'power', '2D Gaussian': 'gaussian2d',
-                'Sersic (Effective Radius)': 'sersic', 'Sersic (Scale Radius)': 'sersic'}
+                'Sersic (Effective Radius)': 'sersic', 'Sersic (Scale Radius)': 'sersic_scale'}
 norm_mapping = {'infinity': 'integ_infinity', 'scale radius': 'surf_scale', 'center': 'surf_center'}
 
 """
@@ -230,7 +230,8 @@ class SourceObj(object):
         #profile_config_file = os.path.join(refdata, 'source', 'config.json')
         #self.profile_config = get_config(profile_config_file)
         self.src_select = widgets.Dropdown(description="Profile: ", options=['Point Source', 'Flat', '2D Gaussian',
-                                                                             'Sersic (Scale Radius)'],
+                                                                             'Sersic (Effective Radius)', 'Sersic (Scale Radius)',
+                                                                             'Power Law'],
                                              value='Point Source')
         self.source_box.children = [self.src_select]
         self.prof_box = widgets.VBox(width="100%")
@@ -241,13 +242,13 @@ class SourceObj(object):
         # run the helper function that displays the selected (default) item and its attendant pieces, and hides the rest.
         self.major = widgets.FloatText(description="Semimajor (arcsec): ", value=0.5, style=style)
         self.minor = widgets.FloatText(description="Semiminor (arcsec): ", value=0.25, style=style)
-        #self.r_core = widgets.FloatText(description="Core Radius (arcsec): ", value=0.005, style=style)
+        self.r_core = widgets.FloatText(description="Core Radius (arcsec): ", value=0.005, style=style)
         self.pos_a = widgets.BoundedFloatText(description="Orientation (deg): ", value=0, min=0, max=359.9, style=style)
         self.sersic = widgets.FloatSlider(description="Sersic Index: ", value=0.5, min=0.3, max=4, readout_format='.1f', style=style)
-        #self.power = widgets.FloatSlider(description="Power Index: ", value=1, min=0.1, max=10, style=style)
+        self.power = widgets.FloatSlider(description="Power Index: ", value=1, min=0.1, max=10, style=style)
         self.norm = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'scale radius', 'center'], style=style)
         self.norm_flat = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'center'], style=style)
-        #self.prof_box.children = [self.major, self.minor, self.r_core, self.pos_a, self.norm, self.sersic, self.power]
+        self.prof_box.children = [self.major, self.minor, self.r_core, self.pos_a, self.norm, self.sersic, self.power]
         self.prof_box.children = [self.major, self.minor, self.pos_a, self.norm, self.sersic]
         self.geom_box.children = [self.source_box, self.prof_box]
 
@@ -322,8 +323,8 @@ class SourceObj(object):
             self.minor.layout.display = 'none'
             self.pos_a.layout.display = 'none'
             self.sersic.layout.display = 'none'
-            #self.power.layout.display = 'none'
-            #self.r_core.layout.display = 'none'
+            self.power.layout.display = 'none'
+            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'none'
             self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "2D Gaussian":
@@ -331,8 +332,8 @@ class SourceObj(object):
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'none'
-            #self.power.layout.display = 'none'
-            #self.r_core.layout.display = 'none'
+            self.power.layout.display = 'none'
+            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
             self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Flat":
@@ -340,8 +341,8 @@ class SourceObj(object):
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'none'
-            #self.power.layout.display = 'none'
-            #self.r_core.layout.display = 'none'
+            self.power.layout.display = 'none'
+            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'none'
             self.norm_flat.layout.display = 'inline'
         elif self.src_select.value == "Sersic (Scale Radius)":
@@ -349,8 +350,8 @@ class SourceObj(object):
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'inline'
-            #self.power.layout.display = 'none'
-            #self.r_core.layout.display = 'none'
+            self.power.layout.display = 'none'
+            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
             self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Sersic (Effective Radius)":
@@ -358,8 +359,8 @@ class SourceObj(object):
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'inline'
-            #self.power.layout.display = 'none'
-            #self.r_core.layout.display = 'none'
+            self.power.layout.display = 'none'
+            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
             self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Power Law":
@@ -367,8 +368,8 @@ class SourceObj(object):
             self.minor.layout.display = 'none'
             self.pos_a.layout.display = 'none'
             self.sersic.layout.display = 'none'
-            #self.power.layout.display = 'inline'
-            #self.r_core.layout.display = 'inline'
+            self.power.layout.display = 'inline'
+            self.r_core.layout.display = 'inline'
             self.norm.layout.display = 'none'
             self.norm_flat.layout.display = 'none'
 
@@ -615,13 +616,12 @@ class WFIRST_gui(object):
         self.plot1d_bg_only = widgets.Output()
         self.plot1d_sn = widgets.Output()
 
-        #self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation,
-        #                                         self.plot2d_ngroups_map])
-        self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation])
+        self.plot2d_form = widgets.Tab(children=[self.plot2d_snr, self.plot2d_detector, self.plot2d_saturation,
+                                                 self.plot2d_ngroups_map])
         self.plot2d_form.set_title(0,'SNR')
         self.plot2d_form.set_title(1,'Detector')
         self.plot2d_form.set_title(2,'Saturation')
-        #self.plot2d_form.set_title(3,'Groups Before Saturation')
+        self.plot2d_form.set_title(3,'Groups Before Saturation')
 
         self.plot1d_form = widgets.Tab(children=[self.plot1d_flux, self.plot1d_bg_only, self.plot1d_sn])
         self.plot1d_form.set_title(0,'Flux')
@@ -731,9 +731,9 @@ class WFIRST_gui(object):
             self.plot2d('saturation', ' ')
             clr = clear_output(wait=True)
 
-        #with self.plot2d_ngroups_map:
-        #    self.plot2d('ngroups_map', '#')
-        #    clr = clear_output(wait=True)
+        with self.plot2d_ngroups_map:
+            self.plot2d('ngroups_map', '#')
+            clr = clear_output(wait=True)
 
         with self.plot1d_flux:
             self.plot1d('extracted_flux', 'mJy')
