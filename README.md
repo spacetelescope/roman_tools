@@ -109,7 +109,7 @@ If you have already installed Astroconda, skip ahead to "Creating a WFIRST Tools
 
 The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started.html) instructions for Astroconda cover setting up the conda package manager and certain environment variables. Enable the Astroconda channel with the command `conda config --add channels http://ssb.stsci.edu/astroconda` (as explained in the [Selecting a Software Stack](http://astroconda.readthedocs.io/en/latest/installation.html#configure-conda-to-use-the-astroconda-channel) document).
 
-The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-to-noise calculator that (for now) depends on Python 2.7. To create a Python 2.7 environment for WFIRST Simulation Tools, use the following command:
+The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-to-noise calculator. To create a Python environment for WFIRST Simulation Tools, use the following command:
 
 ```
 $ conda create -n wfirst-tools --yes python=3.6 astropy=2.0.6 \
@@ -157,19 +157,19 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.2.2
+(wfirst-tools) $ pip install pandeia.engine==1.4
 ```
 
-Note that the `==1.2.2` on the package name explicitly requests version 1.2.2, which is the version that is compatible with the bundled reference data.
+Note that the `==1.4` on the package name explicitly requests version 1.4, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL http://ssb.stsci.edu/pandeia/engine/1.2.1/pandeia_wfirst_data-1.2.1.tar.gz
-(wfirst-tools) $ tar xvzf ./pandeia_wfirst_data-1.2.1.tar.gz
+(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/u2ithjsryhqnwzg3o3o2wfdink0q3z25.gz
+(wfirst-tools) $ tar xvzf ./u2ithjsryhqnwzg3o3o2wfdink0q3z25.gz
 ```
 
-This creates a folder called `pandeia_wfirst_data` in the current directory.
+This creates a folder called `pandeia_data-1.4.1_wfirst` in the current directory.
 
 ## Running the simulation tools locally
 
@@ -198,7 +198,7 @@ If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot 
 Next, configure the Pandeia path:
 
 ```
-(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.2.1_wfirst"
+(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.4.1_wfirst"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
