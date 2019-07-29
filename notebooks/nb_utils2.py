@@ -8,8 +8,6 @@ import os
 import json
 
 import matplotlib
-from matplotlib import style
-style.use('ggplot')
 matplotlib.use('nbagg')
 import matplotlib.pyplot as plt
 
@@ -44,7 +42,7 @@ class Instrument():
     If a mode is set, the class object will expose available apertures and
      strategies for that mode.
     If an aperture is set as well, the class object will expose the valid
-     filters, dispersers, readmodes, and subarrays,
+     filters, dispersers, readout patterns, and subarrays,
 
     The remainder of the instrument configuration is available as self.config
 
@@ -249,7 +247,6 @@ class SourceObj(object):
         self.norm = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'scale radius', 'center'], style=style)
         self.norm_flat = widgets.Dropdown(description="Normalize at: ", options=['infinity', 'center'], style=style)
         self.prof_box.children = [self.major, self.minor, self.r_core, self.pos_a, self.norm, self.sersic, self.power]
-        self.prof_box.children = [self.major, self.minor, self.pos_a, self.norm, self.sersic]
         self.geom_box.children = [self.source_box, self.prof_box]
 
         # Position
@@ -279,99 +276,57 @@ class SourceObj(object):
 
     def on_sed_change(self, change):
         # For each possible setting of sed, flip the individual dropdown box sets on and off accordingly.
-        if self.sed_select.value == "flat":
-            self.bb_temp.layout.display = 'none'
-            self.phoenix.layout.display = 'none'
-            self.galaxies.layout.display = 'none'
-            self.star.layout.display = 'none'
-            self.pl_index.layout.display = 'none'
-        elif self.sed_select.value == "phoenix":
-            self.bb_temp.layout.display = 'none'
+        self.bb_temp.layout.display = 'none'
+        self.phoenix.layout.display = 'none'
+        self.galaxies.layout.display = 'none'
+        self.star.layout.display = 'none'
+        self.pl_index.layout.display = 'none'
+        if self.sed_select.value == "phoenix":
             self.phoenix.layout.display = "inline"
-            self.galaxies.layout.display = 'none'
-            self.star.layout.display = 'none'
-            self.pl_index.layout.display = 'none'
         elif self.sed_select.value == "blackbody":
             self.bb_temp.layout.display = "inline"
-            self.phoenix.layout.display = 'none'
-            self.galaxies.layout.display = 'none'
-            self.star.layout.display = 'none'
-            self.pl_index.layout.display = 'none'
         elif self.sed_select.value == "extragalactic":
-            self.bb_temp.layout.display = 'none'
-            self.phoenix.layout.display = 'none'
             self.galaxies.layout.display = "inline"
-            self.star.layout.display = 'none'
-            self.pl_index.layout.display = 'none'
         elif self.sed_select.value == "star":
-            self.bb_temp.layout.display = 'none'
-            self.phoenix.layout.display = 'none'
-            self.galaxies.layout.display = 'none'
             self.star.layout.display = "inline"
-            self.pl_index.layout.display = 'none'
         elif self.sed_select.value == "power-law":
-            self.bb_temp.layout.display = 'none'
-            self.phoenix.layout.display = 'none'
-            self.galaxies.layout.display = 'none'
-            self.star.layout.display = 'none'
-            self.pl_index.layout.display = 'inline'
+            self.pl_index.layout.display = "inline"
 
     def on_prof_change(self,change):
         # For each possible setting of source, flip the properties boxes on and off accordingly.
-        if self.src_select.value == "Point Source":
-            self.major.layout.display = 'none'
-            self.minor.layout.display = 'none'
-            self.pos_a.layout.display = 'none'
-            self.sersic.layout.display = 'none'
-            self.power.layout.display = 'none'
-            self.r_core.layout.display = 'none'
-            self.norm.layout.display = 'none'
-            self.norm_flat.layout.display = 'none'
-        elif self.src_select.value == "2D Gaussian":
+        self.major.layout.display = 'none'
+        self.minor.layout.display = 'none'
+        self.pos_a.layout.display = 'none'
+        self.sersic.layout.display = 'none'
+        self.power.layout.display = 'none'
+        self.r_core.layout.display = 'none'
+        self.norm.layout.display = 'none'
+        self.norm_flat.layout.display = 'none'
+        if self.src_select.value == "2D Gaussian":
             self.major.layout.display = 'inline'
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
-            self.sersic.layout.display = 'none'
-            self.power.layout.display = 'none'
-            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
-            self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Flat":
             self.major.layout.display = 'inline'
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
-            self.sersic.layout.display = 'none'
-            self.power.layout.display = 'none'
-            self.r_core.layout.display = 'none'
-            self.norm.layout.display = 'none'
             self.norm_flat.layout.display = 'inline'
         elif self.src_select.value == "Sersic (Scale Radius)":
             self.major.layout.display = 'inline'
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'inline'
-            self.power.layout.display = 'none'
-            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
-            self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Sersic (Effective Radius)":
             self.major.layout.display = 'inline'
             self.minor.layout.display = 'inline'
             self.pos_a.layout.display = 'inline'
             self.sersic.layout.display = 'inline'
-            self.power.layout.display = 'none'
-            self.r_core.layout.display = 'none'
             self.norm.layout.display = 'inline'
-            self.norm_flat.layout.display = 'none'
         elif self.src_select.value == "Power Law":
-            self.major.layout.display = 'none'
-            self.minor.layout.display = 'none'
-            self.pos_a.layout.display = 'none'
-            self.sersic.layout.display = 'none'
             self.power.layout.display = 'inline'
             self.r_core.layout.display = 'inline'
-            self.norm.layout.display = 'none'
-            self.norm_flat.layout.display = 'none'
 
 
 class InstObj(object):
@@ -498,11 +453,11 @@ class SpecApPhotObj(ImagingApPhotObj):
 
         self.target_box = widgets.HBox(padding='10px', width="100%")
         targ_lab = widgets.HTML(value="Extraction Target: ", margin='5px')
-        self.target_x = widgets.BoundedFloatText(description="X:", min=-37.5, max=37.5, value=0, width=30)
-        self.target_y = widgets.BoundedFloatText(description="Y:", min=-37.5, max=37.5, value=0, width=30)
+        self.target_x = widgets.BoundedFloatText(description="X:", min=-37.5, max=37.5, value=0, step=0.01, width=30)
+        self.target_y = widgets.BoundedFloatText(description="Y:", min=-37.5, max=37.5, value=0, step=0.01, width=30)
         self.target_box.children = [targ_lab, self.target_x, self.target_y]
 
-        self.reference_wavelength = widgets.BoundedFloatText(description="Wavelength of Interest", min=0.95, max=1.8, value=1.3, width=30, style=style)
+        self.reference_wavelength = widgets.BoundedFloatText(description="Wavelength of Interest", min=0.95, max=1.8, value=1.3, width=30, step=0.01, style=style)
 
         self.advanced = widgets.VBox(width="100%", background_color="#AAAAAA")
         self.aperture_box = widgets.HBox(padding='10px', width="100%")
@@ -533,7 +488,7 @@ class WFIRST_gui(object):
     def __init__(self):
         self.r = {}
         usernotes = widgets.HTML(value="<b>If no advanced settings are changed,</b> a centered point source with no "
-                                      "redshift will be computed using readmode 'medium8' and subarray '1024x1024', "
+                                      "redshift will be computed using readout pattern 'medium8' and subarray '1024x1024', "
                                        "with extraction aperture centered at 0,0 with a size of 0.1 arcsec, and a sky "
                                       "annulus from 0.2-0.3 arcsec."
                                        "<p>The readout patterns are currently inherited from JWST NIRCam. To best "
@@ -545,11 +500,11 @@ class WFIRST_gui(object):
                                        #"<li>WFIRST does not currently anticipate resetting the detector during an "
                                        #"exposure.  Thus Integrations should be set to 1.</li>"
                                        "<li><i>To approximate the current design for the High Latitude Imaging "
-                                       "Survey:</i> readmode 'medium8' with Ngroups = 6 </li>"
+                                       "Survey:</i> readout pattern 'medium8' with Ngroups = 6 </li>"
                                        "<li><i>To approximate the current design for the High Latitude Spectroscopic "
-                                       "Survey:</i> readmode 'medium8' with Ngroups = 13</li> "
+                                       "Survey:</i> readout pattern 'medium8' with Ngroups = 13</li> "
                                        "<li><i>To approximate the current design for the Exoplanet Microlensing "
-                                       "Survey:</i> readmode 'shallow2' with Ngroups = 4</li")
+                                       "Survey:</i> readout pattern 'shallow2' with Ngroups = 4</li")
 
 
         self.form = widgets.VBox(width="100%", background_color="#EEE")
@@ -630,20 +585,15 @@ class WFIRST_gui(object):
 
         self.json_output = widgets.Textarea(value='', description='A JSON-formatted copy of your inputs:')
 
-        tlab1 = widgets.HTML(value="<b>Extracted S/N: <b>", margin='5px')
-        self.esn = widgets.HTML(value="0.0", margin='5px')
-        tlab2 = widgets.HTML(value="       <b>Extracted Flux (e-/sec): </b>", margin='5px')
-        self.eflux = widgets.HTML(value="0.0", margin='5px')
-        tlab3 = widgets.HTML(value="       <b>Exposure Time (sec): <b>", margin='5px')
-        self.etime = widgets.HTML(value="0.0", margin='5px')
+        self.reportpane = widgets.HTML(value="<hr>", margin='5px')
 
         self.computing_notice = widgets.HTML(value="<i>Calculating... please wait.</i>", margin='5px')
         self.computing_notice.layout.display = 'none'
 
         self.tab_form = widgets.HBox(padding='10px', width="100%", pack='center')
-        self.tab_form.children = [tlab1, self.esn, tlab2, self.eflux, tlab3, self.etime]
+        self.tab_form.children = [self.reportpane]
 
-        self.result_form.children = [self.tab_form, self.plot2d_form, self.plot1d_form]
+        self.result_form.children = [self.plot2d_form, self.plot1d_form, self.tab_form]
 
         self.form.children = [
             usernotes,
@@ -678,13 +628,16 @@ class WFIRST_gui(object):
         im = ax1.imshow(self.r['2d'][plotname],cmap='coolwarm', extent=extent)
         ax1.set_xlabel('arcsec')
         ax1.set_ylabel('arcsec')
+        orient = "vertical"
+        if self.r['2d'][plotname].shape[0] != self.r['2d'][plotname].shape[1]:
+            orient = "horizontal"
         if plotname == "saturation":
             norm = matplotlib.colors.Normalize(vmin=0, vmax=2)
             im.set_norm(norm)
-            c = fig.colorbar(im, ax=ax1, orientation="horizontal", label=unitstring, ticks=[0, 1, 2])
+            c = fig.colorbar(im, ax=ax1, orientation=orient, label=unitstring, ticks=[0, 1, 2])
             c.ax.set_xticklabels(["None", "Partial", "Full"])
         else:
-            c = fig.colorbar(im, ax=ax1, orientation="horizontal", label=unitstring)
+            c = fig.colorbar(im, ax=ax1, orientation=orient, label=unitstring)
         plt.tight_layout()
         plt.show()
 
@@ -787,6 +740,7 @@ class WFIRST_gui(object):
         c['configuration']['detector']['readmode'] = self.mode_config[calc_mode].readmode.value
         c['configuration']['detector']['subarray'] = self.mode_config[calc_mode].subarray.value
         c['configuration']['instrument']['filter'] = self.mode_config[calc_mode].filt.value
+        c['configuration']['instrument']['disperser'] = self.mode_config[calc_mode].disp.value
 
         c['scene'] = []
 
@@ -855,9 +809,28 @@ class WFIRST_gui(object):
 
         self.r = perform_calculation(c, dict_report=True)
         self.calc_input = c
-        self.esn.value = "%.2f" % self.r['scalar']['sn']
-        self.eflux.value = "%.2f" % self.r['scalar']['extracted_flux']
-        self.etime.value = "%.2f" % self.r['scalar']['total_exposure_time']
+
+        resultpane = ["<hr><h3><center>RESULTS</center></h3><hr><table>"]
+        for x in sorted(self.r["scalar"]):
+            suffix = ''
+            if "time" in x:
+                suffix = "sec"
+            elif "size" in x or "offset" in x:
+                suffix = "arcsec"
+            elif "area" in x:  # checking this before background means the
+                               # background_area will be given the correct units.
+                suffix = "pixel^2"
+            elif "wavelength" in x:
+                suffix = "microns"
+            elif "background" in x or "extracted" in x:
+                suffix = "e-/sec"
+            else:
+                pass
+            resultpane.append("<tr><td><b>{}</b></td><td>{}</td><td>{}</td></tr>".format(x.replace('_', ' ').title(), self.r["scalar"][x], suffix))
+        resultpane.append('</table>')
+
+
+        self.reportpane.value = ''.join(resultpane)
 
         self.update_plots()
         # Now set the result form to be shown
