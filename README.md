@@ -165,11 +165,11 @@ Note that the `==1.4` on the package name explicitly requests version 1.4, which
 Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/u2ithjsryhqnwzg3o3o2wfdink0q3z25.gz
-(wfirst-tools) $ tar xvzf ./u2ithjsryhqnwzg3o3o2wfdink0q3z25.gz
+(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/0ijsmzs3ed7vwa7hk2dt372grxle8on7.gz
+(wfirst-tools) $ tar xvzf ./0ijsmzs3ed7vwa7hk2dt372grxle8on7.gz
 ```
 
-This creates a folder called `pandeia_data-1.4.1_wfirst` in the current directory.
+This creates a folder called `pandeia_data-1.4.2_wfirst` in the current directory.
 
 ## Running the simulation tools locally
 
