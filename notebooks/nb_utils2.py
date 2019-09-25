@@ -90,7 +90,7 @@ class Instrument():
         self._lookup('dispersers')
         self._lookup('filters')
         self._lookup('subarrays')
-        self._lookup('readmodes')
+        self._lookup('readout_patterns')
 
     def _lookup(self,element):
         setattr(self,'{0:}_all'.format(element),self.config[element])
@@ -359,9 +359,9 @@ class InstObj(object):
         self.det_box.children = [self.ngroups, self.nints, self.nexps]
 
         self.advanced = widgets.VBox(width="100%", background_color="#CCCCCC")
-        self.readmode = widgets.Dropdown(description="Readmode:", options=self.instrument.readmodes, value='medium8')
+        self.readout_pattern = widgets.Dropdown(description="readout_pattern:", options=self.instrument.readout_patterns, value='medium8')
         self.subarray = widgets.Dropdown(description="Sub-array:", options=self.instrument.subarrays, value='1024x1024')
-        self.advanced.children = [self.readmode, self.subarray]
+        self.advanced.children = [self.readout_pattern, self.subarray]
 
         self.advanced_drop = widgets.Accordion(children=[self.advanced])
         self.advanced_drop.set_title(0, "ADVANCED")
@@ -737,7 +737,7 @@ class WFIRST_gui(object):
         c['configuration']['detector']['nexp'] = self.mode_config[calc_mode].nexps.value
         c['configuration']['detector']['ngroup'] = self.mode_config[calc_mode].ngroups.value
         c['configuration']['detector']['nint'] = self.mode_config[calc_mode].nints.value
-        c['configuration']['detector']['readmode'] = self.mode_config[calc_mode].readmode.value
+        c['configuration']['detector']['readout_pattern'] = self.mode_config[calc_mode].readout_pattern.value
         c['configuration']['detector']['subarray'] = self.mode_config[calc_mode].subarray.value
         c['configuration']['instrument']['filter'] = self.mode_config[calc_mode].filt.value
         c['configuration']['instrument']['disperser'] = self.mode_config[calc_mode].disp.value
