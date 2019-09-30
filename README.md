@@ -157,19 +157,19 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.4
+(wfirst-tools) $ pip install pandeia.engine==1.5
 ```
 
-Note that the `==1.4` on the package name explicitly requests version 1.4, which is the version that is compatible with the bundled reference data.
+Note that the `==1.5` on the package name explicitly requests version 1.5, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/0ijsmzs3ed7vwa7hk2dt372grxle8on7.gz
-(wfirst-tools) $ tar xvzf ./0ijsmzs3ed7vwa7hk2dt372grxle8on7.gz
+(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/5j506xzg9tem2l7ymaqzwqtxne7ts3sr.gz
+(wfirst-tools) $ tar xvzf ./5j506xzg9tem2l7ymaqzwqtxne7ts3sr.gz
 ```
 
-This creates a folder called `pandeia_data-1.4.2_wfirst` in the current directory.
+This creates a folder called `pandeia_data-1.5_wfirst` in the current directory.
 
 ## Running the simulation tools locally
 
@@ -198,7 +198,7 @@ If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot 
 Next, configure the Pandeia path:
 
 ```
-(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.4.1_wfirst"
+(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5_wfirst"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
