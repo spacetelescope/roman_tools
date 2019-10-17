@@ -7,33 +7,27 @@ MAINTAINER Space Telescope Science Institute <help@stsci.edu>
 
 WORKDIR $HOME
 
-#
-# Install reference data under /opt
-#
+##############
+# Root Setup #
+##############
+
 USER root
 RUN mkdir -p /opt
 RUN chown $NB_USER /opt
 
+COPY ./docker/install_webbpsf_pandeia.sh /opt/.
+RUN chmod +x /opt/install_webbpsf_pandeia.sh
+
 USER $NB_USER
-WORKDIR /opt
-# Extract PySynphot reference data
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot1.tar.gz | tar xvz
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot2.tar.gz | tar xvz
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
-ENV PYSYN_CDBS /opt/grp/hst/cdbs
 
-# Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/5j506xzg9tem2l7ymaqzwqtxne7ts3sr.gz | tar -xvz
-ENV pandeia_refdata /opt/pandeia_data-1.5_wfirst
+# Update pip
+RUN pip install -U pip
+RUN pip install -U setuptools
 
-# Extract WebbPSF reference data
-# (note: version number env vars are declared close to where they are used
-# to prevent unnecessary rebuilds of the Docker image)
-ENV WEBBPSF_DATA_VERSION 0.8.0
-RUN wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
-ENV WEBBPSF_PATH /opt/webbpsf-data
 
-WORKDIR $HOME
+###############################
+# Install webbpsf and pandeia #
+###############################
 
 # Prepare environment variables
 ENV PYHOME /opt/conda
@@ -41,31 +35,11 @@ ENV PYTHON_VERSION 3.6
 ENV PATH $HOME/bin:$PATH
 ENV LD_LIBRARY_PATH $HOME/lib:$LD_LIBRARY_PATH
 
-# Enable conda-forge package list
-RUN conda config --add channels conda-forge
-# Configure AstroConda
-RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
+WORKDIR /opt
 
-# Install WFIRST Simulation Tools dependencies for python2 and python3
-# from conda:
-ENV EXTRA_PACKAGES astropy=2.0.6 pyfftw pysynphot photutils future pyyaml pandas
-RUN conda install --quiet --yes $EXTRA_PACKAGES && \
-    conda clean -tipsy
+RUN /opt/install_webbpsf_pandeia.sh
 
-RUN pip install ipywidgets==7.0.0
-
-# Install Pandeia
-ENV PANDEIA_VERSION 1.5
-RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
-
-# Install WebbPSF
-ENV WEBBPSF_VERSION 0.8.0
-#RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
-RUN pip install git+git://github.com/spacetelescope/webbpsf.git@master
-RUN pip install git+git://github.com/spacetelescope/poppy.git
-#
-# Prepare files and permissions
-#
+WORKDIR $HOME
 
 # Copy notebooks into place
 # (n.b. This must be last because otherwise Dockerfile edits
