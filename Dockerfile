@@ -39,6 +39,12 @@ WORKDIR /opt
 
 RUN /opt/install_webbpsf_pandeia.sh
 
+ENV PYSYN_CDBS /opt/grp/hst/cdbs
+ENV pandeia_refdata /opt/pandeia_data-1.5_wfirst
+ENV WEBBPSF_PATH /opt/webbpsf-data
+
+RUN rm /opt/install_webbpsf_pandeia.sh
+
 WORKDIR $HOME
 
 # Copy notebooks into place

@@ -17,14 +17,12 @@ export PYSYN_CDBS=$DIR/grp/hst/cdbs
 
 # Extract Pandeia reference data
 wget -qO- https://stsci.box.com/shared/static/5j506xzg9tem2l7ymaqzwqtxne7ts3sr.gz | tar -xvz
-export pandeia_refdata=$DIR/pandeia_data-1.5_wfirst
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
 # to prevent unnecessary rebuilds of the Docker image)
-export WEBBPSF_DATA_VERSION=0.8.0
+export WEBBPSF_DATA_VERSIN=0.8.0
 wget -qO- http://www.stsci.edu/~mperrin/software/webbpsf/webbpsf-data-$WEBBPSF_DATA_VERSION.tar.gz | tar xvz
-export WEBBPSF_PATH=$DIR/webbpsf-data
 
 
 # Enable conda-forge package list
