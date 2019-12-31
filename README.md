@@ -115,7 +115,7 @@ The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-
 $ conda create -n wfirst-tools --yes python=3.6 astropy=2.0.6 \
                                     pyfftw pysynphot photutils \
                                     future pyyaml pandas \
-                                    webbpsf==0.8 webbpsf-data==0.8
+                                    webbpsf==0.9 webbpsf-data==0.9
 
 
 ```
