@@ -1,22 +1,18 @@
-# Developing the WFIRST Tools (Outdated: now using Pandeia 1.2)
+# Developing the WFIRST Tools (Outdated: now using Pandeia 1.5.1)
 
 ## Generating a WFIRST Pandeia data package
 
-To use Pandeia 1.1.1 with the WFIRST Pandeia GUI, you must make a patched data package containing an updated configuration file. The provided code also subsets the Pandeia reference data to contain only the WFIRST-specific and mission-independent data.
+To use Pandeia 1.5.1 with the WFIRST Pandeia GUI, you need to download the Pandeia engine (the same code is used for JWST and WFIRST) and the appropriate Pandeia reference data that describe the WFIRST instruments.
 
-Minimum Python version: Python 3.4.
+The latest version of the Pandeia Engine is here: https://pypi.org/project/pandeia.engine/ and can also be installed with `pip install pandeia.engine`
 
-```
-$ curl -OL http://ssb.stsci.edu/pandeia/engine/1.1.1/pandeia_data-1.1.1.tar.gz
-$ tar xvzf ./pandeia_data-1.1.1.tar.gz
-$ export pandeia_refdata=./pandeia_data-1.1.1/
-$ python3 -m toolbox.etc.make_data_package
-New data package in /Users/jlong/software/wfirst-tools/pandeia_refdata_wfirst
-Successfully performed the default calculation for wfirstimager
-Compressed WFIRST Pandeia data into /Users/jlong/software/wfirst-tools/pandeia_data_wfirst.tar.gz
-```
+The data files for Pandeia v1.5.1 are here: 
+https://stsci.box.com/v/pandeia-refdata-v1p5p1-wfirst
+Or by direct download here:
+https://stsci.box.com/shared/static/ve02bw7h6qzmxtu8rpxewkl3m5jduacq.gz
 
-Hopefully the next point release of Pandeia corrects this, and you can delete `./notebooks/toolbox/etc/make_data_package.py`, `./notebooks/toolbox/etc/data_patch/`, and `./pandeia_wfirst_data.tar.gz`. You'll need to change the corresponding section of the `Dockerfile` to fetch an archive from some URL instead of using a file in the repository as well. (See the section that installs the WebbPSF data for inspiration.)
+Minimum Python version: Python 3.4. (Development has been done on Python 3.7)
+
 
 ## Updating software versions
 
