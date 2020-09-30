@@ -48,7 +48,7 @@ RUN conda config --add channels conda-forge
 RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
 # Install WFIRST Simulation Tools dependencies for python3 from conda:
-ENV EXTRA_PACKAGES astropy synphot stsynphot photutils future pyyaml pandas
+ENV EXTRA_PACKAGES astropy synphot stsynphot pysynphot photutils future pyyaml pandas
 RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 

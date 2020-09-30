@@ -112,7 +112,7 @@ The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started
 The Roman Simulation Tools suite includes the Pandeia engine, an exposure time and signal-to-noise calculator. To create a Python environment for Roman Simulation Tools, use the following command:
 
 ```
-$ conda create -n wfirst-tools --yes python=3.7 astropy \
+$ conda create -n wfirst-tools --yes python=3.7 astropy pysynphot \
                                     synphot stsynphot photutils \
                                     future pyyaml pandas \
                                     webbpsf==0.9 webbpsf-data==0.9
