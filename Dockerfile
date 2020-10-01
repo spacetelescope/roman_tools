@@ -23,9 +23,9 @@ RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
 ENV PYSYN_CDBS /opt/grp/hst/cdbs
 
 # Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/ve02bw7h6qzmxtu8rpxewkl3m5jduacq.gz | tar 
+RUN wget -qO- https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz | tar 
 -xvz
-ENV pandeia_refdata /opt/pandeia_data-1.5.1_wfirst
+ENV pandeia_refdata /opt/pandeia_data-1.5.2_roman
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
@@ -38,7 +38,7 @@ WORKDIR $HOME
 
 # Prepare environment variables
 ENV PYHOME /opt/conda
-ENV PYTHON_VERSION 3.6
+ENV PYTHON_VERSION 3.7
 ENV PATH $HOME/bin:$PATH
 ENV LD_LIBRARY_PATH $HOME/lib:$LD_LIBRARY_PATH
 
@@ -47,16 +47,15 @@ RUN conda config --add channels conda-forge
 # Configure AstroConda
 RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
-# Install WFIRST Simulation Tools dependencies for python2 and python3
-# from conda:
-ENV EXTRA_PACKAGES astropy pysynphot photutils future pyyaml pandas
+# Install WFIRST Simulation Tools dependencies for python3 from conda:
+ENV EXTRA_PACKAGES astropy synphot stsynphot pysynphot photutils future pyyaml pandas
 RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.5.1
+ENV PANDEIA_VERSION 1.5.2
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF

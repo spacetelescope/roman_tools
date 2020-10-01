@@ -1,6 +1,6 @@
-# WFIRST Simulation Tools
+# Nancy Grace Roman Space Telescope Simulation Tools
 
-The WFIRST team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use WFIRST. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
+The Roman team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use Roman. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
 
 Would you like to [launch the tools in a temporary environment in the cloud](#Play-with-the-tools-in-a-temporary-environment-in-the-cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
@@ -12,12 +12,12 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the WFIRST Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [WebbPSF-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
   * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
 
-We have automated the setup of a temporary evaluation environment for community users to evaluate the WFIRST Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
+We have automated the setup of a temporary evaluation environment for community users to evaluate the Roman Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
 To launch in Binder *(beta)*, follow this URL: https://mybinder.org/v2/gh/spacetelescope/wfirst-tools.git/stable (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
 
@@ -105,22 +105,22 @@ Commands for you to execute will be prefixed with a `$`. (You only need to type 
 
 ### Installing Astroconda
 
-If you have already installed Astroconda, skip ahead to "Creating a WFIRST Tools environment".
+If you have already installed Astroconda, skip ahead to "Creating a Roman Tools environment".
 
 The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started.html) instructions for Astroconda cover setting up the conda package manager and certain environment variables. Enable the Astroconda channel with the command `conda config --add channels http://ssb.stsci.edu/astroconda` (as explained in the [Selecting a Software Stack](http://astroconda.readthedocs.io/en/latest/installation.html#configure-conda-to-use-the-astroconda-channel) document).
 
-The WFIRST Simulation Tools suite includes Pandeia, an exposure time and signal-to-noise calculator. To create a Python environment for WFIRST Simulation Tools, use the following command:
+The Roman Simulation Tools suite includes the Pandeia engine, an exposure time and signal-to-noise calculator. To create a Python environment for Roman Simulation Tools, use the following command:
 
 ```
-$ conda create -n wfirst-tools --yes python=3.7 astropy \
-                                    pysynphot photutils \
+$ conda create -n wfirst-tools --yes python=3.7 astropy pysynphot \
+                                    synphot stsynphot photutils \
                                     future pyyaml pandas \
                                     webbpsf==0.9 webbpsf-data==0.9
 
 
 ```
 
-This will create an environment called `wfirst-tools` containing the essential packages for WFIRST simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
+This will create an environment called `wfirst-tools` containing the essential packages for Roman simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
 
 ```
 $ source activate wfirst-tools
@@ -132,7 +132,7 @@ Next, create a new directory somewhere with plenty of space to hold the referenc
 
 ### Installing synthetic photometry reference information
 
-To obtain the [reference data](http://pysynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
+To obtain the [reference data](https://stsynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
 
 ```
 (wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
@@ -150,64 +150,64 @@ This retrieves interstellar extinction curves, several spectral atlases, and a g
 
 This will create a tree of files rooted at `grp/hst/cdbs/` in the current directory.
 
-(Instructions for installing the full set of PySynphot reference data, including things like HST instrument throughput reference files, can be found [in the PySynphot documentation](http://pysynphot.readthedocs.io/en/latest/index.html#installation-and-setup).)
+(Instructions for installing the full set of Synphot reference data, including things like HST instrument throughput reference files, can be found [in the PySynphot documentation](http://pysynphot.readthedocs.io/en/latest/index.html#installation-and-setup).)
 
-### Installing the Pandeia engine
+### Installing the Pandeia Engine
 
-Pandeia is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
-
-```
-(wfirst-tools) $ pip install pandeia.engine==1.5.1
-```
-
-Note that the `==1.5.1` on the package name explicitly requests version 1.5.1, which is the version that is compatible with the bundled reference data.
-
-Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (54 MB) as follows and extract:
+The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
 
 ```
-(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/ve02bw7h6qzmxtu8rpxewkl3m5jduacq.gz
-(wfirst-tools) $ tar xvzf ./ve02bw7h6qzmxtu8rpxewkl3m5jduacq.gz
+(wfirst-tools) $ pip install pandeia.engine==1.5.2
 ```
 
-This creates a folder called `pandeia_data-1.5.1_wfirst` in the current directory.
+Note that the `==1.5.2` on the package name explicitly requests version 1.5.2, which is the version that is compatible with the bundled reference data.
+
+Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (40 MB) as follows and extract:
+
+```
+(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz
+(wfirst-tools) $ tar xvzf ./7voehzi5krrpml5wgyg8bo954ew7arh2.gz
+```
+
+This creates a folder called `pandeia_data-1.5.2_roman` in the current directory.
 
 ## Running the simulation tools locally
 
-WebbPSF, Pandeia, and pysynphot all depend on certain environment variables to determine the paths to reference data.
+WebbPSF, Pandeia, and synphot all depend on certain environment variables to determine the paths to reference data.
 
-You may wish to save these variables in your `~/.bash_profile` file, or [a new conda/activate.d/ script](https://conda.io/docs/using/envs.html#saved-environment-variables) so they are always set when you go to run the WFIRST simulation tools.
+You may wish to save these variables in your `~/.bash_profile` file, or [a new conda/activate.d/ script](https://conda.io/docs/using/envs.html#saved-environment-variables) so they are always set when you go to run the Roman simulation tools.
 
 ### Configuring environment variables
 
 Where you see `$(pwd)` in the following commands, substitute in the directory where you have chosen to store the reference data (e.g. `echo "$(pwd)"` becomes `echo "/path/to/reference/file/space"`).
 
-Configure the PySynphot CDBS path:
+Configure the Synphot CDBS path:
 
 ```
 (wfirst-tools) $ export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
 ```
 
-To test that pysynphot can find its reference files, use the following command:
+To test that synphot can find its reference files, use the following command:
 
 ```
-(wfirst-tools) $ python -c "import warnings; warnings.simplefilter('ignore'); import pysynphot; print pysynphot.Icat('phoenix', 5750, 0.0, 4.5).name"
+(wfirst-tools) $ python -c "import warnings; warnings.simplefilter('ignore'); import stsynphot; print(stsynphot.catalog.grid_to_spec('phoenix', 5750, 0.0, 4.5))"
 ```
 
-If you see "phoenix(Teff=5750,z=0,logG=4.5)" appear in your terminal, pysynphot and its reference data files have been installed correctly.
+If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and Components, synphot, stsynphot, and their reference data files have been installed correctly.
 
 Next, configure the Pandeia path:
 
 ```
-(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5.1_wfirst"
+(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5.2_roman"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
 
 ```
-(wfirst-tools) $ python -c 'from pandeia.engine.wfirst import WFIRSTImager; WFIRSTImager(mode="imaging")'
+(wfirst-tools) $ python -c 'import pandeia.engine; pandeia.engine.pandeia_version()'
 ```
 
-If you do not see any errors, Pandeia was able to instantiate a WFIRST WFI model successfully.
+If your data is set up correctly, it will output the version numbers for the Engine and RefData.
 
 ### Viewing and running these example notebooks
 
@@ -221,7 +221,7 @@ This will create a new folder called `wfirst-tools` containing this README and a
 
 ## Resources
 
-Pandeia users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-WFIRST question" in the subject line. The message will be directed to the appropriate members of the Pandeia-WFIRST team at STScI.  For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
+Pandeia users are encouraged to address questions, suggestions, and bug reports to help@stsci.edu with "Pandeia-Roman question" in the subject line. The message will be directed to the appropriate members of the Pandeia-Roman team at STScI.  For issues with WebbPSF, we prefer that you report your issues in the GitHub issue tracker for the speediest response: https://github.com/spacetelescope/webbpsf/issues (choose the green "New Issue" button after logging in).
 
 
   * [WebbPSF documentation](https://pythonhosted.org/webbpsf/)
