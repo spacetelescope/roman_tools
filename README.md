@@ -1,10 +1,10 @@
-# Nancy Grace Roman Space Telescope Simulation Tools
+# Nancy Grace Roman Space Telescope (Roman) Simulation Tools
 
-The Roman team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use Roman. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's WFIRST website](http://www.stsci.edu/scientific-community/wide-field-infrared-survey-telescope/science-planning-toolbox).
+The Roman team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use Roman. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's Roman website](https://www.stsci.edu/roman/science-planning-toolbox).
 
 Would you like to [launch the tools in a temporary environment in the cloud](#Play-with-the-tools-in-a-temporary-environment-in-the-cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
-**To stay abreast of changes and make sure you always have the latest WFIRST simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
+**To stay abreast of changes and make sure you always have the latest Roman simulation tools, you may wish to [subscribe to our mailing list](https://maillist.stsci.edu/scripts/wa.exe?SUBED1=WFIRST-TOOLS&A=1).** This list is low-traffic and only for announcements.
 
 To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia: a multi-mission exposure time calculator for JWST and WFIRST", Proc. SPIE. 9910.](http://dx.doi.org/10.1117/12.2231768) and/or [Perrin et al. 2014, "Updated point spread function simulations for JWST with WebbPSF", Proc. SPIE. 9143.](http://adsabs.harvard.edu/abs/2014SPIE.9143E..3XP).
 
@@ -12,14 +12,14 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/WebbPSF-WFIRST_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/wfirst-tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [WebbPSF-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
 
 We have automated the setup of a temporary evaluation environment for community users to evaluate the Roman Simulation Tools from STScI. This depends on a free third-party service called Binder, currently available in beta (without guarantees of uptime).
 
-To launch in Binder *(beta)*, follow this URL: https://mybinder.org/v2/gh/spacetelescope/wfirst-tools.git/stable (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
+To launch in Binder *(beta)*, follow this URL: https://mybinder.org/v2/gh/spacetelescope/roman_tools.git/stable (**Note:** If you see an error involving redirects in Safari, try Chrome or Firefox. This should be fixed soon by the Binder project.)
 
 It may take a few minutes to start up. Feel free to explore and run example calculations. Launching an environment through Binder will always use the most recent supported versions of our tools.
 
@@ -64,7 +64,7 @@ export PATH=/usr/local/bin:$PATH
 
 #### When I run `./run.sh`, I get an error saying "context canceled"
 
-Sometimes you will see `Successfully tagged wfirst-tools:latest` in your terminal, but still get an error like this:
+Sometimes you will see `Successfully tagged roman_tools:latest` in your terminal, but still get an error like this:
 
 ```
 docker: Error response from daemon: driver failed programming external
@@ -79,7 +79,7 @@ This means that port 8888 is already in use, either by a notebook server running
 ```
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
-e4cb3f9a0cb1        wfirst-tools        "tini -- start-not..."   3 minutes ago       Up 3 minutes        127.0.0.1:8888->8888/tcp   priceless_mirzakhani
+e4cb3f9a0cb1        roman_tools         "tini -- start-not..."   3 minutes ago       Up 3 minutes        127.0.0.1:8888->8888/tcp   priceless_mirzakhani
 ```
 
 You can use the name or container ID to stop it with `docker stop`:
@@ -112,7 +112,7 @@ The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started
 The Roman Simulation Tools suite includes the Pandeia engine, an exposure time and signal-to-noise calculator. To create a Python environment for Roman Simulation Tools, use the following command:
 
 ```
-$ conda create -n wfirst-tools --yes python=3.7 astropy pysynphot \
+$ conda create -n roman_tools --yes python=3.7 astropy pysynphot \
                                     synphot stsynphot photutils \
                                     future pyyaml pandas \
                                     webbpsf==0.9 webbpsf-data==0.9
@@ -120,13 +120,13 @@ $ conda create -n wfirst-tools --yes python=3.7 astropy pysynphot \
 
 ```
 
-This will create an environment called `wfirst-tools` containing the essential packages for Roman simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
+This will create an environment called `roman_tools` containing the essential packages for Roman simulations. To use it, you must activate it every time you open a new terminal window. Go ahead and do that now:
 
 ```
-$ source activate wfirst-tools
+$ source activate roman_tools
 ```
 
-You should see a new prefix on your shell prompt. (If the prompt was `$` before, it should now look like `(wfirst-tools) $`.)
+You should see a new prefix on your shell prompt. (If the prompt was `$` before, it should now look like `(roman_tools) $`.)
 
 Next, create a new directory somewhere with plenty of space to hold the reference files and navigate there in your terminal (with `cd /path/to/reference/file/space` or similar).
 
@@ -135,17 +135,17 @@ Next, create a new directory somewhere with plenty of space to hold the referenc
 To obtain the [reference data](https://stsynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
 
 ```
-(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
-(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
-(wfirst-tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
+(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
+(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
+(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
 ```
 
 This retrieves interstellar extinction curves, several spectral atlases, and a grid of stellar spectra derived from [PHOENIX](http://www.hs.uni-hamburg.de/index.php?option=com_content&view=article&id=14&Itemid=294&lang=en) models. Extract them into the current directory:
 
 ```
-(wfirst-tools) $ tar xvzf ./synphot1.tar.gz
-(wfirst-tools) $ tar xvzf ./synphot2.tar.gz
-(wfirst-tools) $ tar xvzf ./synphot5.tar.gz
+(roman_tools) $ tar xvzf ./synphot1.tar.gz
+(roman_tools) $ tar xvzf ./synphot2.tar.gz
+(roman_tools) $ tar xvzf ./synphot5.tar.gz
 ```
 
 This will create a tree of files rooted at `grp/hst/cdbs/` in the current directory.
@@ -154,19 +154,19 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 
 ### Installing the Pandeia Engine
 
-The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `wfirst-tools` environment with the following command:
+The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `roman_tools` environment with the following command:
 
 ```
-(wfirst-tools) $ pip install pandeia.engine==1.5.2
+(roman_tools) $ pip install pandeia.engine==1.5.2
 ```
 
 Note that the `==1.5.2` on the package name explicitly requests version 1.5.2, which is the version that is compatible with the bundled reference data.
 
-Pandeia also depends on a collection of reference data to define the characteristics of the WFIRST instruments. Download it (40 MB) as follows and extract:
+Pandeia also depends on a collection of reference data to define the characteristics of the Roman instruments. Download it (40 MB) as follows and extract:
 
 ```
-(wfirst-tools) $ curl -OL https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz
-(wfirst-tools) $ tar xvzf ./7voehzi5krrpml5wgyg8bo954ew7arh2.gz
+(roman_tools) $ curl -OL https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz
+(roman_tools) $ tar xvzf ./7voehzi5krrpml5wgyg8bo954ew7arh2.gz
 ```
 
 This creates a folder called `pandeia_data-1.5.2_roman` in the current directory.
@@ -184,13 +184,13 @@ Where you see `$(pwd)` in the following commands, substitute in the directory wh
 Configure the Synphot CDBS path:
 
 ```
-(wfirst-tools) $ export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
+(roman_tools) $ export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
 ```
 
 To test that synphot can find its reference files, use the following command:
 
 ```
-(wfirst-tools) $ python -c "import warnings; warnings.simplefilter('ignore'); import stsynphot; print(stsynphot.catalog.grid_to_spec('phoenix', 5750, 0.0, 4.5))"
+(roman_tools) $ python -c "import warnings; warnings.simplefilter('ignore'); import stsynphot; print(stsynphot.catalog.grid_to_spec('phoenix', 5750, 0.0, 4.5))"
 ```
 
 If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and Components, synphot, stsynphot, and their reference data files have been installed correctly.
@@ -198,26 +198,26 @@ If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and
 Next, configure the Pandeia path:
 
 ```
-(wfirst-tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5.2_roman"
+(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5.2_roman"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
 
 ```
-(wfirst-tools) $ python -c 'import pandeia.engine; pandeia.engine.pandeia_version()'
+(roman_tools) $ python -c 'import pandeia.engine; pandeia.engine.pandeia_version()'
 ```
 
 If your data is set up correctly, it will output the version numbers for the Engine and RefData.
 
 ### Viewing and running these example notebooks
 
-In a terminal where you have run `source activate wfirst-tools` and set the above environment variables, navigate to the directory where you would like to keep the example notebooks and clone this repository from GitHub:
+In a terminal where you have run `source activate roman_tools` and set the above environment variables, navigate to the directory where you would like to keep the example notebooks and clone this repository from GitHub:
 
 ```
-(wfirst-tools) $ git clone https://github.com/spacetelescope/wfirst-tools.git
+(roman_tools) $ git clone https://github.com/spacetelescope/roman_tools.git
 ```
 
-This will create a new folder called `wfirst-tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
+This will create a new folder called `roman_tools` containing this README and all of the example notebooks. From this directory, simply run `jupyter notebook`. Choose `Getting Started.ipynb` from the file list, and explore the available examples of WebbPSF and Pandeia calculations.
 
 ## Resources
 
