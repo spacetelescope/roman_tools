@@ -23,8 +23,7 @@ RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
 ENV PYSYN_CDBS /opt/grp/hst/cdbs
 
 # Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz | tar 
--xvz
+RUN wget -qO- https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz | tar xvz
 ENV pandeia_refdata /opt/pandeia_data-1.5.2_roman
 
 # Extract WebbPSF reference data
@@ -61,7 +60,7 @@ RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 # Install WebbPSF
 ENV WEBBPSF_VERSION 0.9.0
 #RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
-RUN pip install git+git://github.com/spacetelescope/webbpsf.git@master
+RUN pip install git+git://github.com/spacetelescope/webbpsf.git@develop
 RUN pip install git+git://github.com/spacetelescope/poppy.git
 #
 # Prepare files and permissions
