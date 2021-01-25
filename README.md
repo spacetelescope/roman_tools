@@ -12,7 +12,7 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [WebbPSF-Roman Tutorial](https://github.com/robelgeda/roman_tools/blob/roman_rename/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
   * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
