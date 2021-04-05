@@ -17,14 +17,15 @@ RUN chown $NB_USER /opt
 USER $NB_USER
 WORKDIR /opt
 # Extract PySynphot reference data
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot1.tar.gz | tar xvz
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot2.tar.gz | tar xvz
-RUN wget -qO- http://ssb.stsci.edu/cdbs/tarfiles/synphot5.tar.gz | tar xvz
-ENV PYSYN_CDBS /opt/grp/hst/cdbs
+RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_everything_multi_v5_sed.tar | tar xvz
+RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_star-galaxy-models_multi_v3_synphot2.tar | tar xvz
+RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_pheonix-models_multi_v2_synphot5.tar | tar xvz
+RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_jwst_multi_etc-models_multi_v1_synphot7.tar | tar xvz
+ENV PYSYN_CDBS /opt/grp/redcat/trds
 
 # Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz | tar xvz
-ENV pandeia_refdata /opt/pandeia_data-1.5.2_roman
+RUN wget -qO- https://stsci.box.com/shared/static/ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz | tar xvz
+ENV pandeia_refdata /opt/pandeia_data-1.6_roman
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
@@ -54,7 +55,7 @@ RUN conda install --quiet --yes $EXTRA_PACKAGES && \
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.5.2
+ENV PANDEIA_VERSION 1.6
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
