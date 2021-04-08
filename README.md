@@ -13,7 +13,7 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
   * [WebbPSF-Roman Tutorial](https://github.com/robelgeda/roman_tools/blob/roman_rename/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-WFIRST Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/Pandeia-WFIRST.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [Pandeia-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/Pandeia-Roman.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
 
@@ -135,20 +135,22 @@ Next, create a new directory somewhere with plenty of space to hold the referenc
 To obtain the [reference data](https://stsynphot.readthedocs.io/en/latest/#installation-and-setup) used for synthetic photometry, you will need to retrieve them via FTP. The `curl` command line tool can be used as follows to retrieve the archives:
 
 ```
-(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot1.tar.gz    # 85 MB
-(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot2.tar.gz    # 34 MB
-(roman_tools) $ curl -OL ftp://ftp.stsci.edu/cdbs/tarfiles/synphot5.tar.gz    # 505 MB
+(roman_tools) $ curl -OL https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_everything_multi_v5_sed.tar    # 85 MB
+(roman_tools) $ curl -OL https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_star-galaxy-models_multi_v3_synphot2.tar    # 34 MB
+(roman_tools) $ curl -OL https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_hst_multi_pheonix-models_multi_v2_synphot5.tar    # 505 MB
+(roman_tools) $ curl -OL https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-atlases_jwst_multi_etc-models_multi_v1_synphot7.tar # 9 MB
 ```
 
 This retrieves interstellar extinction curves, several spectral atlases, and a grid of stellar spectra derived from [PHOENIX](http://www.hs.uni-hamburg.de/index.php?option=com_content&view=article&id=14&Itemid=294&lang=en) models. Extract them into the current directory:
 
 ```
-(roman_tools) $ tar xvzf ./synphot1.tar.gz
-(roman_tools) $ tar xvzf ./synphot2.tar.gz
-(roman_tools) $ tar xvzf ./synphot5.tar.gz
+(roman_tools) $ tar xvzf ./hlsp_reference-atlases_hst_multi_everything_multi_v5_sed.tar
+(roman_tools) $ tar xvzf ./hlsp_reference-atlases_hst_multi_star-galaxy-models_multi_v3_synphot2.tar
+(roman_tools) $ tar xvzf ./hlsp_reference-atlases_hst_multi_pheonix-models_multi_v2_synphot5.tar 
+(roman_tools) $ tar xvzf ./hlsp_reference-atlases_jwst_multi_etc-models_multi_v1_synphot7.tar
 ```
 
-This will create a tree of files rooted at `grp/hst/cdbs/` in the current directory.
+This will create a tree of files rooted at `grp/redcat/trds/` in the current directory.
 
 (Instructions for installing the full set of Synphot reference data, including things like HST instrument throughput reference files, can be found [in the PySynphot documentation](http://pysynphot.readthedocs.io/en/latest/index.html#installation-and-setup).)
 
@@ -157,19 +159,19 @@ This will create a tree of files rooted at `grp/hst/cdbs/` in the current direct
 The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `roman_tools` environment with the following command:
 
 ```
-(roman_tools) $ pip install pandeia.engine==1.5.2
+(roman_tools) $ pip install pandeia.engine==1.6
 ```
 
-Note that the `==1.5.2` on the package name explicitly requests version 1.5.2, which is the version that is compatible with the bundled reference data.
+Note that the `==1.6` on the package name explicitly requests version 1.6, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the Roman instruments. Download it (40 MB) as follows and extract:
 
 ```
-(roman_tools) $ curl -OL https://stsci.box.com/shared/static/7voehzi5krrpml5wgyg8bo954ew7arh2.gz
-(roman_tools) $ tar xvzf ./7voehzi5krrpml5wgyg8bo954ew7arh2.gz
+(roman_tools) $ curl -OL https://stsci.box.com/shared/static/ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz
+(roman_tools) $ tar xvzf ./ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz
 ```
 
-This creates a folder called `pandeia_data-1.5.2_roman` in the current directory.
+This creates a folder called `pandeia_data-1.6_roman` in the current directory.
 
 ## Running the simulation tools locally
 
@@ -184,7 +186,7 @@ Where you see `$(pwd)` in the following commands, substitute in the directory wh
 Configure the Synphot CDBS path:
 
 ```
-(roman_tools) $ export PYSYN_CDBS="$(pwd)/grp/hst/cdbs"
+(roman_tools) $ export PYSYN_CDBS="$(pwd)/grp/redcat/trds"
 ```
 
 To test that synphot can find its reference files, use the following command:
@@ -198,7 +200,7 @@ If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and
 Next, configure the Pandeia path:
 
 ```
-(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.5.2_roman"
+(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.6_roman"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
