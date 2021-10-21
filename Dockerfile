@@ -24,8 +24,8 @@ RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-a
 ENV PYSYN_CDBS /opt/grp/redcat/trds
 
 # Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz | tar xvz
-ENV pandeia_refdata /opt/pandeia_data-1.6_roman
+RUN wget -qO- https://stsci.box.com/shared/static/h99co8sxn2exmcbydnu28qiix3eqtogd.gz | tar xvz
+ENV pandeia_refdata /opt/pandeia_data-1.6.2_roman
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
@@ -55,7 +55,7 @@ RUN conda install --quiet --yes $EXTRA_PACKAGES && \
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.6
+ENV PANDEIA_VERSION 1.6.2
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF

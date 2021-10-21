@@ -159,19 +159,19 @@ This will create a tree of files rooted at `grp/redcat/trds/` in the current dir
 The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `roman_tools` environment with the following command:
 
 ```
-(roman_tools) $ pip install pandeia.engine==1.6
+(roman_tools) $ pip install pandeia.engine==1.6.2
 ```
 
-Note that the `==1.6` on the package name explicitly requests version 1.6, which is the version that is compatible with the bundled reference data.
+Note that the `==1.6.2` on the package name explicitly requests version 1.6.2, which is the version that is compatible with the bundled reference data.
 
 Pandeia also depends on a collection of reference data to define the characteristics of the Roman instruments. Download it (40 MB) as follows and extract:
 
 ```
-(roman_tools) $ curl -OL https://stsci.box.com/shared/static/ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz
-(roman_tools) $ tar xvzf ./ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz
+(roman_tools) $ curl -OL https://stsci.box.com/shared/static/h99co8sxn2exmcbydnu28qiix3eqtogd.gz
+(roman_tools) $ tar xvzf ./h99co8sxn2exmcbydnu28qiix3eqtogd.gz
 ```
 
-This creates a folder called `pandeia_data-1.6_roman` in the current directory.
+This creates a folder called `pandeia_data-1.6.2_roman` in the current directory.
 
 ## Running the simulation tools locally
 
@@ -200,7 +200,7 @@ If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and
 Next, configure the Pandeia path:
 
 ```
-(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.6_roman"
+(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.6.2_roman"
 ```
 
 To test that Pandeia can find its reference files, use the following command:
