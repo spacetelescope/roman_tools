@@ -1,6 +1,6 @@
 # Nancy Grace Roman Space Telescope (Roman) Simulation Tools
 
-The Roman team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use Roman. These tools are available separately as the Pandeia exposure time calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's Roman website](https://www.stsci.edu/roman/science-planning-toolbox).
+The Roman team at STScI has developed an exposure time calculator, a PSF model, and an image simulator for the science community to plan how they will use Roman. These tools are available separately as the Pandeia Exposure Time Calculator engine, the WebbPSF point spread function modeling package, and the Space Telescope Image Product Simulator (STIPS).   Comprehensive setup documentation for local installation as well as tutorials for Pandeia and WebbPSF are provided here.  STIPS is available at https://github.com/spacetelescope/STScI-STIPS.  High level overviews of the functionality of the tools are available on [STScI's Roman website](https://www.stsci.edu/roman/science-planning-toolbox).
 
 Would you like to [launch the tools in a temporary environment in the cloud](#Play-with-the-tools-in-a-temporary-environment-in-the-cloud) or [install the simulation tools locally](#install-the-simulation-tools-locally)?
 
@@ -12,8 +12,8 @@ To cite our tools, we ask that you reference [Pontoppidan et al. 2016, "Pandeia:
 
 The tutorials are stored as Jupyter Notebooks--documents which interleave code, figures, and prose explanations--and can be run locally once you have followed the setup instructions below. They can also be viewed in a browser.
 
-  * [WebbPSF-Roman Tutorial](https://github.com/robelgeda/roman_tools/blob/roman_rename/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
-  * [Pandeia-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/master/notebooks/Pandeia-Roman.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
+  * [WebbPSF-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/develop/notebooks/WebbPSF-Roman_Tutorial.ipynb) — Simulate a PSF for the Roman Wide-Field Instrument by selecting a detector position. Evaluate PSF differences between two detector positions. Shows both the WebbPSF notebook GUI and a brief example of performing calculations with the API.
+  * [Pandeia-Roman Tutorial](https://github.com/spacetelescope/roman_tools/blob/develop/notebooks/Pandeia-Roman.ipynb) — Calculate exposure times and simulate detector "postage stamps" for scenes made up of point sources and extended sources.
 
 ## Play with the tools in a temporary environment in the cloud
 
@@ -112,10 +112,10 @@ The [Getting Started](http://astroconda.readthedocs.io/en/latest/getting_started
 The Roman Simulation Tools suite includes the Pandeia engine, an exposure time and signal-to-noise calculator. To create a Python environment for Roman Simulation Tools, use the following command:
 
 ```
-$ conda create -n roman_tools --yes python=3.7 astropy pysynphot \
+$ conda create -n roman_tools --yes python=3.7 astropy \
                                     synphot stsynphot photutils \
                                     future pyyaml pandas \
-                                    webbpsf==0.9 webbpsf-data==0.9
+                                    webbpsf==1.0 webbpsf-data==1.0
 
 
 ```
@@ -159,23 +159,23 @@ This will create a tree of files rooted at `grp/redcat/trds/` in the current dir
 The Pandeia Engine is available through PyPI (the Python Package Index), rather than Astroconda. Fortunately, we can install it into our `roman_tools` environment with the following command:
 
 ```
-(roman_tools) $ pip install pandeia.engine==1.6.2
+(roman_tools) $ pip install pandeia.engine==1.7
 ```
 
-Note that the `==1.6.2` on the package name explicitly requests version 1.6.2, which is the version that is compatible with the bundled reference data.
+Note that the `==1.7` on the package name explicitly requests version 1.7, which is the version that is compatible with the bundled reference data.
 
-Pandeia also depends on a collection of reference data to define the characteristics of the Roman instruments. Download it (40 MB) as follows and extract:
+Pandeia also depends on a collection of reference data to define the characteristics of the Roman instruments. Download it (45 MB) as follows and extract:
 
 ```
-(roman_tools) $ curl -OL https://stsci.box.com/shared/static/h99co8sxn2exmcbydnu28qiix3eqtogd.gz
-(roman_tools) $ tar xvzf ./h99co8sxn2exmcbydnu28qiix3eqtogd.gz
+(roman_tools) $ curl -OL https://stsci.box.com/shared/static/ycbm34uxhzafgb7te74vyl2emnr1mdty.gz
+(roman_tools) $ tar xvzf ./ycbm34uxhzafgb7te74vyl2emnr1mdty.gz
 ```
 
-This creates a folder called `pandeia_data-1.6.2_roman` in the current directory.
+This creates a folder called `pandeia_data-1.7_roman` in the current directory.
 
 ## Running the simulation tools locally
 
-WebbPSF, Pandeia, and synphot all depend on certain environment variables to determine the paths to reference data.
+WebbPSF, Pandeia, and Synphot all depend on certain environment variables to determine the paths to reference data.
 
 You may wish to save these variables in your `~/.bash_profile` file, or [a new conda/activate.d/ script](https://conda.io/docs/using/envs.html#saved-environment-variables) so they are always set when you go to run the Roman simulation tools.
 
@@ -200,7 +200,7 @@ If you see output for a SourceSpectrum detailing the Model, Inputs, Outputs, and
 Next, configure the Pandeia path:
 
 ```
-(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.6.2_roman"
+(roman_tools) $ export pandeia_refdata="$(pwd)/pandeia_data-1.7_roman"
 ```
 
 To test that Pandeia can find its reference files, use the following command:

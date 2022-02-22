@@ -1,17 +1,17 @@
-# Developing the Roman Tools (Outdated: now using Pandeia 1.6)
+# Developing the Roman Tools (Outdated: now using Pandeia 1.7)
 
 ## Generating a Roman Pandeia data package
 
-To use Pandeia 1.6 with the Roman Pandeia GUI, you need to download the Pandeia engine (the same code is used for JWST and Roman) and the appropriate Pandeia reference data that describe the Roman instruments.
+To use Pandeia 1.7 with the Roman Pandeia GUI, you need to download the Pandeia engine (the same code is used for JWST and Roman) and the appropriate Pandeia reference data that describe the Roman instruments.
 
 The latest version of the Pandeia Engine is here: https://pypi.org/project/pandeia.engine/ and can also be installed with `pip install pandeia.engine`
 
-The data files for Pandeia v1.6 are here: 
-https://stsci.box.com/v/pandeia-refdata-v1p6-roman
+The data files for Pandeia v1.7 are here: 
+https://stsci.box.com/v/pandeia-refdata-v1p7-roman
 Or by direct download here:
-https://stsci.box.com/shared/static/ksg2b7whqgzmvuqoln6zj9u2usomsgfu.gz
+https://stsci.box.com/shared/static/ycbm34uxhzafgb7te74vyl2emnr1mdty.gz
 
-Minimum Python version: Python 3.6. (Development has been done on Python 3.7)
+Minimum Python version: Python 3.6. (Development has been done on Python 3.9)
 
 
 ## Updating software versions
