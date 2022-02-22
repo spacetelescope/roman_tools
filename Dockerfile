@@ -24,14 +24,14 @@ RUN wget -qO- https://archive.stsci.edu/hlsps/reference-atlases/hlsp_reference-a
 ENV PYSYN_CDBS /opt/grp/redcat/trds
 
 # Extract Pandeia reference data
-RUN wget -qO- https://stsci.box.com/shared/static/h99co8sxn2exmcbydnu28qiix3eqtogd.gz | tar xvz
-ENV pandeia_refdata /opt/pandeia_data-1.6.2_roman
+RUN wget -qO- https://stsci.box.com/shared/static/ycbm34uxhzafgb7te74vyl2emnr1mdty.gz | tar xvz
+ENV pandeia_refdata /opt/pandeia_data-1.7_roman
 
 # Extract WebbPSF reference data
 # (note: version number env vars are declared close to where they are used
 # to prevent unnecessary rebuilds of the Docker image)
-ENV WEBBPSF_DATA_VERSION 0.9.0
-RUN wget -qO- https://stsci.box.com/shared/static/qcptcokkbx7fgi3c00w2732yezkxzb99.gz | tar xvz
+ENV WEBBPSF_DATA_VERSION 1.0.0
+RUN wget -qO- https://stsci.box.com/shared/static/34o0keicz2iujyilg4uz617va46ks6u9.gz | tar xvz
 ENV WEBBPSF_PATH /opt/webbpsf-data
 
 WORKDIR $HOME
@@ -47,19 +47,19 @@ RUN conda config --add channels conda-forge
 # Configure AstroConda
 RUN conda config --system --add channels http://ssb.stsci.edu/astroconda
 
-# Install WFIRST Simulation Tools dependencies for python3 from conda:
-ENV EXTRA_PACKAGES astropy synphot stsynphot pysynphot photutils future pyyaml pandas
+# Install Roman Simulation Tools dependencies for python3 from conda:
+ENV EXTRA_PACKAGES astropy synphot stsynphot photutils future pyyaml pandas
 RUN conda install --quiet --yes $EXTRA_PACKAGES && \
     conda clean -tipsy
 
 RUN pip install ipywidgets==7.0.0
 
 # Install Pandeia
-ENV PANDEIA_VERSION 1.6.2
+ENV PANDEIA_VERSION 1.7
 RUN pip install --no-cache-dir pandeia.engine==$PANDEIA_VERSION
 
 # Install WebbPSF
-ENV WEBBPSF_VERSION 0.9.0
+ENV WEBBPSF_VERSION 1.0.0
 #RUN pip install --no-cache-dir webbpsf==$WEBBPSF_VERSION
 RUN pip install git+git://github.com/spacetelescope/webbpsf.git@develop
 RUN pip install git+git://github.com/spacetelescope/poppy.git
